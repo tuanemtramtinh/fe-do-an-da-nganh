@@ -1,0 +1,40 @@
+extends ./layouts/default.pug
+
+block head 
+  title Đăng Ký
+
+block main
+
+  .auth
+    .container
+      .auth__wrapper
+        .auth__image
+          img(src='/assets/images/register.png' alt='')
+        form.auth__form(action='')
+          .auth__title
+            h2 Đăng Ký
+            div Đăng ký để nhận được nhiều quyền lợi hơn
+          .auth__form-element.auth__form-element-double
+            div
+              label.form-label(for='firstname') Tên
+              input#firstname(type='text' name='firstname')
+            div
+              label.form-label(for='lastname') Họ và tên đệm 
+              input#lastname(type='text' name='lastname')
+          .auth__form-element
+            label.form-label(for='username') Tên đăng nhập 
+            input#username(type='text' name='username')
+          .auth__form-element
+            label.form-label(for='password') Mật khẩu
+            input#password(type='text' name='password')
+          .auth__form-element.auth__form-element-agree
+            input#agree(type='checkbox' name='agree')
+            label(for='agree')
+              | Tôi đồng ý với 
+              span mọi điều khoản
+              |  và 
+              span các chính sách bảo mật
+          button(type='submit') Đăng Ký
+          p
+            | Đã có tài khoản?  
+            a(href='/login.html') Đăng Nhập

@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  background-color: #F9FAFB;
+  margin: 0;
+}
+
+input {
+  outline: none;
+  border: 0;
+}
+
+button {
+  border: 0;
+  outline: none;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-style: italic;
+  color: #313131;
+  margin-bottom: 10px;
+}
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+
+
+/* HEADER */
+
+.header {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: sticky;
+  top: 0;
+}
+
+.header__wrapper {
+  padding: 15px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.header__nav {
+  display: flex;
+  gap: 65px;
+}
+
+.header__nav li a:hover {
+  color: #2563EB;
+}
+
+.header__user i {
+  margin-right: 10px;
+}
+
+.header__logo a:hover {
+  color: #2563EB;
+}
+
+.header__user {
+  display: block;
+}
+
+.header__user:hover {
+  color: #2563EB;
+}
+
+/* END HEADER */
+
+/* FOOTER  */
+
+.footer {
+  background-color: #111827;
+}
+
+.footer__wrapper {
+  padding: 50px 0px;
+  color: white;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 35px;
+  border-bottom: 1px solid white;
+}
+
+.footer__logo {
+  margin-bottom: 15px;
+}
+
+
+.footer__logo img {
+  width: 150px;
+}
+
+.footer__desc {
+  width: 80%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 30px;
+  font-size: 30px;
+}
+
+.footer__copyright {
+  margin-top: 50px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* END FOOTER */
+
+/* SECTION 3 */
+
+.section-3__wrapper {
+  padding: 100px 0px;
+}
+
+.section-3__title {
+  text-align: center;
+}
+
+.section-3__title h2 {
+  font-size: 40px;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.section-3__title p {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.section-3__form {
+  background-color: #EEF3FF;
+  padding: 60px 125px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.section-3__form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 110px;
+  row-gap: 40px;
+}
+
+.section-3__form-wrapper div:last-child {
+  grid-column: span 2;
+  width: calc(100%/2 - 55px);
+  margin: 0 auto;
+}
+
+.section-3__form input {
+  padding: 12px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+}
+
+.section-3__form button {
+  margin-top: 60px;
+  background-color: #2563EB;
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+  color: white;
+  border-radius: 10px;
+  padding: 20px 0px;
+  cursor: pointer;
+}
+
+/* END SECTION 3 */
+
+/* AUTH */
+
+.auth {
+  padding: 100px 0px;
+}
+
+.auth__wrapper {
+  background-color: white;
+  padding: 50px 100px;
+  display: flex;
+  align-items: center;
+  gap: 110px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.auth__title {
+  margin-bottom: 65px;
+}
+
+.auth__title h2 {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.auth__title div {
+  color: #313131;
+}
+
+.auth__form {
+  flex: 1;
+}
+
+.auth__form-element {
+  margin-bottom: 24px;
+}
+
+.auth__form-element input {
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.auth__form-element-double {
+  display: flex;
+  gap: 24px;
+}
+
+.auth__form-element-double div {
+  width: 100%;
+}
+
+.auth__form-element-double div input {
+  width: 100%;
+}
+
+.auth__form-element-agree {
+  font-weight: 600;
+}
+
+.auth__form-element-agree span {
+  color: #FF8682;
+}
+
+.auth__form-element-agree label {
+  display: inline-block;
+}
+
+.auth__form-element-agree input {
+  width: auto;
+}
+
+.auth__form-element-login {
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth__form-element-login label {
+  display: inline-block;
+}
+
+.auth__form-element-login input {
+  width: auto;
+}
+
+.auth__form-element-login a {
+  color: #FF8682;
+}
+
+.auth__form button {
+  width: 100%;
+  background-color: #2563EB;
+  padding: 15px 0px;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.auth__form p {
+  font-weight: 600;
+  text-align: center;
+}
+
+.auth__form p a {
+  color: #FF8682;
+}
+
+/* END AUTH */

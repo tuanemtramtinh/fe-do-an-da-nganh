@@ -1,0 +1,35 @@
+extends ./layouts/default.pug
+
+block head 
+  title Đăng Ký
+
+block main
+
+  .auth
+    .container
+      .auth__wrapper
+        
+        form.auth__form(action='')
+          .auth__title
+            h2 Đăng Nhập
+            div Đăng nhập để trải nghiệm toàn bộ dịch vụ của Partify
+          .auth__form-element
+            label.form-label(for='username') Tên đăng nhập 
+            input#username(type='text' name='username')
+          .auth__form-element
+            label.form-label(for='password') Mật khẩu
+            input#password(type='password' name='password')
+          .auth__form-element.auth__form-element-login
+            div
+              input#remember(type='checkbox' name='remember')
+              label(for='remember') Tưởng nhớ tôi
+            div 
+              a(href="#") Quên mật khẩu 
+              
+          button(type='submit') Đăng Ký
+          p
+            | Đã có tài khoản?  
+            a(href='/login.html') Đăng Nhập
+
+        .auth__image
+          img(src='/assets/images/login.png' alt='')

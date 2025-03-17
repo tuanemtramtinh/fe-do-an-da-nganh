@@ -1,0 +1,33 @@
+extends ./layouts/default.pug
+
+block head 
+  title Lịch Sử
+
+block main
+  .history
+    .container
+      .history__wrapper
+        .history__title
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          h2 Lịch sử tính toán
+        .history__list
+
+          .history__item
+            .history__item-date 14/03/2025
+            .history__item-status.success Hoàn Thành
+            a(href="").history__item-detail Xem Chi Tiết
+
+          .history__item
+            .history__item-date 14/03/2025
+            .history__item-status.fail Thất Bại
+            a(href="").history__item-detail Xem Chi Tiết
+
+          .history__item
+            .history__item-date 14/03/2025
+            .history__item-status.success Hoàn Thành
+            a(href="").history__item-detail Xem Chi Tiết
+
+          .history__item
+            .history__item-date 14/03/2025
+            .history__item-status.fail Thất Bại
+            a(href="").history__item-detail Xem Chi Tiết

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <title>Đăng Ký</title>
+    <title>Tính toán</title>
   </head>
   <body> 
     <header class="header">
@@ -22,40 +22,43 @@
         </div>
       </div>
     </header>
-    <div class="auth">
+    <div class="calculate-section-1">
       <div class="container">
-        <div class="auth__wrapper">
-          <div class="auth__image"><img src="/assets/images/register.png" alt=""></div>
-          <form class="auth__form register" action="">
-            <div class="auth__title">
-              <h2>Đăng Ký</h2>
-              <div>Đăng ký để nhận được nhiều quyền lợi hơn</div>
-            </div>
-            <div class="auth__form-element auth__form-element-double">
-              <div>
-                <label class="form-label" for="firstname">Tên</label>
-                <input id="firstname" type="text" name="firstname">
+        <div class="calculate-section-1__wrapper">
+          <div class="calculate-section-1__title"><i class="fa-solid fa-calculator"></i>
+            <h2>Quy Trình Tính Toán</h2>
+            <p>Kết quả tính toán và linh kiện sẽ được thể hiện ở từng bước </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="calculate-progress">
+      <div class="container">
+        <div class="calculate-progress__wrapper">
+          <div class="calculate-progress__list">
+            <div class="calculate-progress__line"></div><a class="calculate-progress__item active" href="">1</a><a class="calculate-progress__item" href="">2</a><a class="calculate-progress__item" href="">3</a><a class="calculate-progress__item" href="">4</a><a class="calculate-progress__item" href="">5</a><a class="calculate-progress__item" href="">6</a><a class="calculate-progress__item" href="">7</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="calculate-suggest">
+      <div class="container">
+        <div class="calculate-suggest__wrapper">
+          <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+            <h2>Linh Kiện Phù Hợp</h2>
+          </div>
+          <div class="calculate-suggest__list">
+            <div class="calculate-suggest__list-title">Động cơ</div>
+            <div class="calculate-suggest__list-wrapper">
+              <div class="calculate-suggest__item">
+                <div class="calculate-suggest__item-name">Động cơ PPL2-MiniGO</div>
+                <div class="calculate-suggest__item-manufacturer">
+                   Nhà sản xuất: <span>HCMUT </span></div>
+                <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
+                <button class="calculate-suggest__item-save">Lưu</button>
               </div>
-              <div>
-                <label class="form-label" for="lastname">Họ và tên đệm </label>
-                <input id="lastname" type="text" name="lastname">
-              </div>
             </div>
-            <div class="auth__form-element">
-              <label class="form-label" for="username">Tên đăng nhập </label>
-              <input id="username" type="text" name="username">
-            </div>
-            <div class="auth__form-element">
-              <label class="form-label" for="password">Mật khẩu</label>
-              <input id="password" type="text" name="password">
-            </div>
-            <div class="auth__form-element auth__form-element-agree">
-              <input id="agree" type="checkbox" name="agree">
-              <label for="agree">Tôi đồng ý với <span>mọi điều khoản</span> và <span>các chính sách bảo mật</span></label>
-            </div>
-            <button type="submit">Đăng Ký</button>
-            <p>Đã có tài khoản?  <a href="/login.html">Đăng Nhập</a></p>
-          </form>
+          </div>
         </div>
       </div>
     </div>

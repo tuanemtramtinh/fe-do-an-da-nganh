@@ -1,0 +1,47 @@
+extends ./layouts/default.pug
+
+block head 
+  title Tính toán
+
+block main
+  .calculate-section-1
+    .container
+      .calculate-section-1__wrapper
+        .calculate-section-1__title
+          <i class="fa-solid fa-calculator"></i>
+          h2 Quy Trình Tính Toán
+          p Kết quả tính toán và linh kiện sẽ được thể hiện ở từng bước 
+
+  .calculate-progress
+    .container
+      .calculate-progress__wrapper
+        .calculate-progress__list
+          .calculate-progress__line
+          a(href="").calculate-progress__item.active 1
+          a(href="").calculate-progress__item 2
+          a(href="").calculate-progress__item 3
+          a(href="").calculate-progress__item 4
+          a(href="").calculate-progress__item 5
+          a(href="").calculate-progress__item 6
+          a(href="").calculate-progress__item 7
+
+  .calculate-suggest
+    .container
+      .calculate-suggest__wrapper
+        .calculate-suggest__title
+          <i class="fa-solid fa-circle-check"></i>
+          h2 Linh Kiện Phù Hợp
+
+        .calculate-suggest__list
+          .calculate-suggest__list-title Động cơ
+          .calculate-suggest__list-wrapper
+            .calculate-suggest__item
+              .calculate-suggest__item-name Động cơ PPL2-MiniGO
+              .calculate-suggest__item-manufacturer 
+                |Nhà sản xuất: 
+                span HCMUT 
+              .calculate-suggest__item-image
+                img(src="https://placehold.co/350x180?font=roboto&text=Engine", alt="")
+              button.calculate-suggest__item-save Lưu
+
+

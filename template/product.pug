@@ -4,12 +4,29 @@ block head
   title Linh Kiện
 
 block main
+
+  include ./partials/search-bar.pug
+
   .product
     .container
       .product__wrapper
+        .product__list
+          - for (let i = 1; i <= 6; i++)
+            .product__item
+              .product__item-image
+                img(src="https://placehold.co/400x180", alt="")
+              .product__item-desc 
+                .product__item-title Động cơ phản lực HCMUT
+                .product__item-content Mô tả về động cơ phản lực bách khoa. Mô tả về động cơ phản lực bách khoa. Mô tả về động cơ phản lực bách khoa. Mô tả về động cơ phản lực bách khoa.
+              a(href="").product__item-detail Xem Chi Tiết
 
-        form.product-bar
-
-        .product-list
-
-        .product-pagination
+        .product__pagination
+          a(href="").product__pagination-arrow <i class="fa-solid fa-chevron-left"></i>
+          .product__pagination-list
+            a(href="").product__pagination-item 1
+            a(href="").product__pagination-item 2
+            a(href="").product__pagination-item 3
+            a(href="").product__pagination-item 4
+            a(href="").product__pagination-item 5
+            a(href="").product__pagination-item 6
+          a(href="").product__pagination-arrow <i class="fa-solid fa-chevron-right"></i>

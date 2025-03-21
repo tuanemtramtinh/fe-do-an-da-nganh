@@ -4,6 +4,37 @@ block head
   title Chi Tiết Linh Kiện
 
 block main
+
+  include ./partials/search-bar.pug
+
   .product-detail
     .container
-      .product-detail__wrapper
+      .product-detail__wrapper 
+        .product-detail__image
+          img(src="https://placehold.co/300x300", alt="")
+        .product-detail__content
+          .product-detail__title Động cơ phản lực HCMUT
+          .product-detail__manufacturer Nhà sản xuất
+          .product-detail__suggest 
+            <i class="fa-solid fa-lightbulb"></i> 
+            span 10 lượt gợi ý
+          .product-detail__desc
+            .product-detail__detail
+              span Mã linh kiện:
+              span XXXXXXX
+            .product-detail__detail
+              span Chỉnh sửa lần cuối:
+              span XXXXXXX
+          .product-detail__param
+            .product-detail__param-title Thông Số
+            .product-detail__parm-list 
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+              .product-detail__param-item
+        
+

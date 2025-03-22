@@ -89,20 +89,43 @@ button {
   color: #2563EB;
 }
 
-.header__user i {
-  margin-right: 10px;
-}
+
 
 .header__logo a:hover {
   color: #2563EB;
 }
 
-.header__user {
+/* .header__user {
   display: block;
+} */
+
+/* .header__user:hover {
+  
+} */
+
+.header__user a {
+  margin-right: 15px;
 }
 
-.header__user:hover {
+.header__user a:hover{
   color: #2563EB;
+}
+
+.header__user span{
+  display: none;
+}
+
+.header__user .logout.active{
+  display: inline;
+}
+
+.header__user .logout:hover{
+  color: #2563EB;
+  cursor: pointer;
+}
+
+.header__user a i {
+  margin-right: 10px;
 }
 
 /* END HEADER */

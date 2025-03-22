@@ -17,13 +17,13 @@ block main
       .calculate-progress__wrapper
         .calculate-progress__list
           .calculate-progress__line
-          a(href="").calculate-progress__item.active 1
-          a(href="").calculate-progress__item 2
-          a(href="").calculate-progress__item 3
-          a(href="").calculate-progress__item 4
-          a(href="").calculate-progress__item 5
-          a(href="").calculate-progress__item 6
-          a(href="").calculate-progress__item 7
+          div(chapter="1").calculate-progress__item 1
+          div(chapter="2").calculate-progress__item 2
+          div(chapter="3").calculate-progress__item 3
+          div(chapter="4").calculate-progress__item 4
+          div(chapter="5").calculate-progress__item 5
+          div(chapter="6").calculate-progress__item 6
+          div(chapter="7").calculate-progress__item 7
 
   .calculate-suggest
     .container
@@ -41,7 +41,7 @@ block main
                 |Nhà sản xuất: 
                 span HCMUT 
               .calculate-suggest__item-image
-                img(src="https://placehold.co/350x180?font=roboto&text=Engine", alt="")
+                img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
               button.calculate-suggest__item-save Lưu
 
   .calculate-result
@@ -51,6 +51,6 @@ block main
           span 1
           h3 Tính chọn động cơ điện
         .calculate-result__body
-          
+
 
 

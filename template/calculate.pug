@@ -25,32 +25,127 @@ block main
           div(chapter="6").calculate-progress__item 6
           div(chapter="7").calculate-progress__item 7
 
-  .calculate-suggest
-    .container
-      .calculate-suggest__wrapper
-        .calculate-suggest__title
-          <i class="fa-solid fa-circle-check"></i>
-          h2 Linh Kiện Phù Hợp
+  .calculate
+    //- .calculate-suggest
+    //-   .container
+    //-     .calculate-suggest__wrapper
+    //-       .calculate-suggest__title
+    //-         <i class="fa-solid fa-circle-check"></i>
+    //-         h2 Linh Kiện Phù Hợp
 
-        .calculate-suggest__list
-          .calculate-suggest__list-title Động cơ
-          .calculate-suggest__list-wrapper
-            .calculate-suggest__item
-              .calculate-suggest__item-name Động cơ PPL2-MiniGO
-              .calculate-suggest__item-manufacturer 
-                |Nhà sản xuất: 
-                span HCMUT 
-              .calculate-suggest__item-image
-                img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
-              button.calculate-suggest__item-save Lưu
+    //-       .calculate-suggest__list
+    //-         .calculate-suggest__list-title Động cơ
+    //-         .calculate-suggest__list-wrapper.swiper.mySwiper
+    //-           .swiper-wrapper
+    //-             .calculate-suggest__item.swiper-slide
+    //-               .calculate-suggest__item-name Động cơ PPL2-MiniGO
+    //-               .calculate-suggest__item-manufacturer 
+    //-                 |Nhà sản xuất: 
+    //-                 span HCMUT 
+    //-               .calculate-suggest__item-parameter
+    //-                 div
+    //-                   span Công suất: 
+    //-                   span 100W
+    //-                 div 
+    //-                   span Vận tốc vòng quay: 
+    //-                   span 500 vòng/phút
+    //-               .calculate-suggest__item-image
+    //-                 img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
+    //-               button.calculate-suggest__item-save Lưu
 
-  .calculate-result
-    .container
-      .calculate-result__wrapper
-        .calculate-result__title
-          span 1
-          h3 Tính chọn động cơ điện
-        .calculate-result__body
+    //-             .calculate-suggest__item.swiper-slide
+    //-               .calculate-suggest__item-name Động cơ PPL2-MiniGO
+    //-               .calculate-suggest__item-manufacturer 
+    //-                 |Nhà sản xuất: 
+    //-                 span HCMUT 
+    //-               .calculate-suggest__item-parameter
+    //-                 div
+    //-                   span Công suất: 
+    //-                   span 100W
+    //-                 div 
+    //-                   span Vận tốc vòng quay: 
+    //-                   span 500 vòng/phút
+    //-               .calculate-suggest__item-image
+    //-                 img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
+    //-               button.calculate-suggest__item-save Lưu
+
+    //-             .calculate-suggest__item.swiper-slide
+    //-               .calculate-suggest__item-name Động cơ PPL2-MiniGO
+    //-               .calculate-suggest__item-manufacturer 
+    //-                 |Nhà sản xuất: 
+    //-                 span HCMUT 
+    //-               .calculate-suggest__item-parameter
+    //-                 div
+    //-                   span Công suất: 
+    //-                   span 100W
+    //-                 div 
+    //-                   span Vận tốc vòng quay: 
+    //-                   span 500 vòng/phút
+    //-               .calculate-suggest__item-image
+    //-                 img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
+    //-               button.calculate-suggest__item-save Lưu
+
+    //-             .calculate-suggest__item.swiper-slide
+    //-               .calculate-suggest__item-name Động cơ PPL2-MiniGO
+    //-               .calculate-suggest__item-manufacturer 
+    //-                 |Nhà sản xuất: 
+    //-                 span HCMUT 
+    //-               .calculate-suggest__item-parameter
+    //-                 div
+    //-                   span Công suất: 
+    //-                   span 100W
+    //-                 div 
+    //-                   span Vận tốc vòng quay: 
+    //-                   span 500 vòng/phút
+    //-               .calculate-suggest__item-image
+    //-                 img(src="https://placehold.co/350x180?font=roboto&text=Engine" alt="")
+    //-               button.calculate-suggest__item-save Lưu
+    //-           .swiper-pagination
+
+
+    //- .calculate-result
+    //-   .container
+    //-     .calculate-result__wrapper
+    //-       .calculate-result__title
+    //-         span 1
+    //-         h3 Tính chọn động cơ điện
+    //-       .calculate-result__body
+    //-         table 
+    //-           thead 
+    //-             tr 
+    //-               th Thông số
+    //-               th Động cơ
+    //-               th Trục I
+    //-               th(colspan="2") Trục II
+    //-               th(colspan="2") Trục II
+    //-               th Trục III
+    //-           tbody 
+    //-             tr 
+    //-               td P(kw)
+    //-               td 14,77
+    //-               td 13.74
+    //-               td(colspan="4") 11.57
+    //-               td 10.99
+    //-             tr
+    //-               td n (vg/phút)
+    //-               td 2935
+    //-               td 978,3
+    //-               td(colspan="4") 82,7
+    //-               td 23.7
+    //-             tr 
+    //-               td u 
+    //-               td 3
+    //-               td(colspan="3") 1
+    //-               td(colspan="3") 1
+    //-               //- td(colspan="2") 11,8339814
+    //-               //- td(colspan="2") 3,485982795
+    //-             tr 
+    //-               td T(N.mm)
+    //-               td 48058,1459
+    //-               td 134168,7317
+    //-               td(colspan="4") 1336091,857
+    //-               td 4426576,601
+
 
 
 

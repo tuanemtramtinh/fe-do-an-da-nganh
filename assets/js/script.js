@@ -1,5 +1,18 @@
 const API_URL = "http://localhost:3000";
 
+//Swiper
+if (document.querySelector(".mySwiper")) {
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3,
+    spaceBetween: 30,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+}
+//End Swiper
+
 const getUrlParams = (param, defaultValue = null) => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param) || defaultValue;
@@ -15,16 +28,27 @@ const handleChapter1 = async (inputId) => {
     );
     if (stage1Response.status === 200) {
       const suggestEngines = stage1Response.data.data.engines;
-      const calculateSuggest = document.querySelector(
-        ".calculate-suggest__wrapper"
-      );
+      const calculate = document.querySelector(".calculate");
+
+      const calculateSuggest = document.createElement("div");
+      calculateSuggest.classList.add("calculate-suggest");
 
       const suggestEnginesHTML = suggestEngines.map(
         (engine) =>
-          `<div class="calculate-suggest__item" engine-id="${engine._id}">
+          `<div class="calculate-suggest__item swiper-slide" engine-id="${engine._id}">
             <div class="calculate-suggest__item-name">${engine.kieu_dong_co}</div>
             <div class="calculate-suggest__item-manufacturer">
-                Nhà sản xuất: <span>HCMUT </span></div>
+                Nhà sản xuất: <span>HCMUT </span>
+            </div>
+            <div class="calculate-suggest__item-parameter">
+              <div>
+                <span>Công suất: </span>
+                <span>${engine.cong_suat_kW}</span>
+              </div>
+              <div> 
+                <span>Vận tốc vòng quay: </span>
+                <span>${engine.van_toc_quay_vgph}</div>
+            </div>
             <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
             <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
           </div>`
@@ -33,14 +57,35 @@ const handleChapter1 = async (inputId) => {
       const suggestEngineList = `
         <div class="calculate-suggest__list">
           <div class="calculate-suggest__list-title">Động cơ</div>
-          <div class="calculate-suggest__list-wrapper">
-            ${suggestEnginesHTML.join("\n")}
+          <div class="calculate-suggest__list-wrapper swiper mySwiper">
+            <div class="swiper-wrapper">
+              ${suggestEnginesHTML.join("\n")}
+            </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
       `;
 
-      calculateSuggest.innerHTML = suggestEngineList;
+      calculateSuggest.innerHTML = `
+       <div class="container">
+          <div class="calculate-suggest__wrapper">
+            <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+              <h2>Linh Kiện Phù Hợp</h2>
+            </div>
+            ${suggestEngineList}
+          </div>
+        </div>
+      `;
 
+      calculate.appendChild(calculateSuggest);
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
       //Handle Save Button
       const saveButtons = document.querySelectorAll(
         ".calculate-suggest__item-save"
@@ -57,7 +102,69 @@ const handleChapter1 = async (inputId) => {
               }
             );
             if (response.status === 200) {
-              console.log(response.data);
+              button.classList.add("active");
+              const engine = response.data.data;
+              const calculationResult = document.createElement("div");
+              calculationResult.classList.add("calculate-result");
+
+              const table = `
+              <table> 
+                <thead> 
+                  <tr> 
+                    <th>Thông số</th>
+                    <th>Động cơ</th>
+                    <th>Trục I</th>
+                    <th colspan="2">Trục II</th>
+                    <th colspan="2">Trục II</th>
+                    <th>Trục III</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                  <tr> 
+                    <td>P(kw)</td>
+                    <td>${engine.P_dc}</td>
+                    <td>${engine.P_I}</td>
+                    <td colspan="4">${engine.P_II}</td>
+                    <td>${engine.P_III}</td>
+                  </tr>
+                  <tr>
+                    <td>n (vg/phút)</td>
+                    <td>${engine.n_dc}</td>
+                    <td>${engine.n_I}</td>
+                    <td colspan="4">${engine.n_II}</td>
+                    <td>${engine.n_III}</td>
+                  </tr>
+                  <tr> 
+                    <td>u </td>
+                    <td>${engine.u_dc}</td>
+                    <td colspan="3">${engine.u_I_II}</td>
+                    <td colspan="3">${engine.u_II_III} </td>
+                  </tr>
+                  <tr> 
+                    <td>T(N.mm)</td>
+                    <td>${engine.T_dc}</td>
+                    <td>${engine.T_I}</td>
+                    <td colspan="4">${engine.T_II}</td>
+                    <td>${engine.T_III}</td>
+                  </tr>
+                </tbody>
+              </table>
+              `;
+
+              calculationResult.innerHTML = `
+              <div class="container">
+                <div class="calculate-result__wrapper">
+                  <div class="calculate-result__title"><span>1</span>
+                    <h3>Tính chọn động cơ điện</h3>
+                  </div>
+                  <div class="calculate-result__body">
+                    ${table}
+                  </div>
+                </div>
+              </div>
+              `;
+
+              calculate.append(calculationResult);
             }
           } catch (error) {
             console.log(error);
@@ -234,6 +341,8 @@ const main = async () => {
         handleChapter(currentChapter, inputId);
       });
     });
+
+    calculateProgressItem[0].click();
   }
 
   //End Calculate

@@ -98,22 +98,27 @@ table, th, td {
 
 .header__nav {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 65px;
+  width: 50%;
 }
 
 .header__nav li a:hover {
   color: #2563EB;
 }
 
-
+.header__logo{
+  width: 25%;
+}
 
 .header__logo a:hover {
   color: #2563EB;
 }
 
-/* .header__user {
-  display: block;
-} */
+.header__user {
+  width: 25%;
+}
 
 /* .header__user:hover {
   
@@ -851,7 +856,7 @@ table, th, td {
 }
 
 .calculate-result {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .calculate-result__wrapper {
@@ -901,6 +906,24 @@ table, th, td {
   padding: 10px;
 }
 
+.calculate__export-button{
+  display: block;
+  margin-bottom: 50px;
+  width: 100%;
+  background-color: #2563EB;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 20px 0px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* .calculate__export-button:hover{
+  color: #2563EB;
+  background-color: white;
+} */
 
 
 /* END CALCULATE */

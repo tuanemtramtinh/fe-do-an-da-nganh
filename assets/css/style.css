@@ -745,6 +745,7 @@ table, th, td {
   border-radius: 9999px;
   position: relative;
   z-index: 2;
+  cursor: pointer;
 }
 
 .calculate-progress__item.active {
@@ -860,10 +861,9 @@ table, th, td {
 }
 
 .calculate-result__wrapper {
-  padding: 0 30px;
+  padding: 30px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding-top: 35px;
   border-radius: 20px;
 }
 
@@ -894,11 +894,21 @@ table, th, td {
 }
 
 .calculate-result__body {
-  min-height: 300px;
+  /* min-height: 300px; */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.calculate-result__element h2{
+  margin-bottom: 15px;
+  color: #2563EB;
+  text-align: center;
 }
 
 .calculate-result__body table{
   width: 100%;
+  /* table-layout: fixed;  */
   font-size: 18px;
 }
 

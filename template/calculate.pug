@@ -107,45 +107,197 @@ block main
     //-   .container
     //-     .calculate-result__wrapper
     //-       .calculate-result__title
-    //-         span 1
+    //-         span 2
     //-         h3 Tính chọn động cơ điện
     //-       .calculate-result__body
-    //-         table 
-    //-           thead 
-    //-             tr 
-    //-               th Thông số
-    //-               th Động cơ
-    //-               th Trục I
-    //-               th(colspan="2") Trục II
-    //-               th(colspan="2") Trục II
-    //-               th Trục III
-    //-           tbody 
-    //-             tr 
-    //-               td P(kw)
-    //-               td 14,77
-    //-               td 13.74
-    //-               td(colspan="4") 11.57
-    //-               td 10.99
-    //-             tr
-    //-               td n (vg/phút)
-    //-               td 2935
-    //-               td 978,3
-    //-               td(colspan="4") 82,7
-    //-               td 23.7
-    //-             tr 
-    //-               td u 
-    //-               td 3
-    //-               td(colspan="3") 1
-    //-               td(colspan="3") 1
-    //-               //- td(colspan="2") 11,8339814
-    //-               //- td(colspan="2") 3,485982795
-    //-             tr 
-    //-               td T(N.mm)
-    //-               td 48058,1459
-    //-               td 134168,7317
-    //-               td(colspan="4") 1336091,857
-    //-               td 4426576,601
+    //-         .calculate-result__element
+    //-           h2 Bảng thông số của bộ truyền đai thang
+    //-           table(style="table-layout: fixed;")
+    //-             thead 
+    //-               tr 
+    //-                 th Thông số
+    //-                 th Trị số
+    //-             tbody 
+    //-               tr 
+    //-                 td 
+    //-                   span Đường kính bánh đai nhỏ: d
+    //-                   sub 1 
+    //-                   span (mm)
+    //-                 td 140
+    //-               tr
+    //-                 td 
+    //-                   span Đường kính bánh đai nhỏ: d
+    //-                   sub 2 
+    //-                   span (mm)
+    //-                 td 23.7
+    //-               tr 
+    //-                 td Khoảng cách trục: a (mm)
+    //-                 td 3
+    //-               tr 
+    //-                 td Chiều dài đai: L (mm)
+    //-                 td 2240
+    //-               tr 
+    //-                 td Góc ôm đai: (độ)
+    //-                 td 158&deg
+    //-               tr 
+    //-                 td Số đai: z
+    //-                 td 6
+    //-               tr 
+    //-                 td Chiều rộng đai: B (mm)
+    //-                 td 120
+    //-               tr 
+    //-                 td
+    //-                   span Lực căng ban đầu: F
+    //-                   sub 0 
+    //-                   span (N)
+    //-                 td 5
+    //-               tr 
+    //-                 td
+    //-                   span Lực căng ban đầu: F
+    //-                   sub r
+    //-                   span (N)
+    //-                 td 5
 
+    //-         .calculate-result__element
+    //-           h2 Xác định kích thước chính của bộ truyền
+    //-           table(style="table-layout: fixed;")
+    //-             thead 
+    //-               tr 
+    //-                 th Thông số hình học
+    //-                 th Công thức
+    //-             tbody 
+    //-               tr 
+    //-                 td(colspan="2" style="text-align:center; font-weight:700;") Trục Vít
+    //-               tr
+    //-                 td 
+    //-                   span Đường kính vòng chia
+    //-                 td
+    //-                   | d
+    //-                   sub 1
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng đỉnh
+    //-                 td
+    //-                   | d
+    //-                   sub a1
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng đáy
+    //-                 td
+    //-                   | d
+    //-                   sub f1
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Góc xoắn ốc vít
+    //-                 td &gamma; = 18&deg;
+    //-               tr 
+    //-                 td Chiều dài phần cắt ren trục vít
+    //-                 td 
+    //-                   | b
+    //-                   sub 1
+    //-                   |  = 133 (mm)
+    //-               tr 
+    //-                 td(colspan="2" style="text-align:center; font-weight:700;") Bánh Vít
+    //-                 tr
+    //-                 td 
+    //-                   span Đường kính vòng chia
+    //-                 td
+    //-                   | d
+    //-                   sub 2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng đỉnh
+    //-                 td
+    //-                   | d
+    //-                   sub a2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng đáy
+    //-                 td
+    //-                   | d
+    //-                   sub f2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Khoảng cách trục
+    //-                 td
+    //-                   | a
+    //-                   sub &omega;
+    //-                   |  = 230 (mm)
+    //-               tr 
+    //-                 td Đường kính lớn nhất của bánh vít
+    //-                 td
+    //-                   | d
+    //-                   sub aM2
+    //-                   |  = 390 (mm)
+    //-               tr 
+    //-                 td Chiều rộng của bánh vít
+    //-                 td
+    //-                   | b
+    //-                   sub 2
+    //-                   |  = 87 (mm)
+                    
+    //-         .calculate-result__element
+    //-           h2 Bảng thông số bánh răng
+    //-           table
+    //-             thead 
+    //-               tr 
+    //-                 th Các thông số
+    //-                 th Bánh răng 1
+    //-                 th Bánh răng 2
+    //-             tbody 
+    //-               tr 
+    //-                 td Đường kính vòng chia
+    //-                 td
+    //-                   | d 
+    //-                   sub 1
+    //-                   |  = 100 (mm)
+    //-                 td
+    //-                   | d 
+    //-                   sub 2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng đỉnh
+    //-                 td
+    //-                   | d 
+    //-                   sub a1
+    //-                   |  = 100 (mm)
+    //-                 td
+    //-                   | d 
+    //-                   sub a2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng lăn
+    //-                 td
+    //-                   | d 
+    //-                   sub w1
+    //-                   |  = 100 (mm)
+    //-                 td
+    //-                   | d 
+    //-                   sub w2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Đường kính vòng chân
+    //-                 td
+    //-                   | d 
+    //-                   sub f1
+    //-                   |  = 100 (mm)
+    //-                 td
+    //-                   | d 
+    //-                   sub f2
+    //-                   |  = 100 (mm)
+    //-               tr 
+    //-                 td Khoảng cách trục
+    //-                 td(colspan="2")
+    //-                   | a
+    //-                   sub &omega;
+    //-                   |  = a = 230 (mm)
+    //-               tr 
+    //-                 td Chiều rộng vành răng
+    //-                 td(colspan="2")
+    //-                   | b
+    //-                   sub &omega;
+    //-                   |  = 162 (mm)
+                    
   //- .calculate__export 
   //-   .container
   //-     a.calculate__export-button Xuất Báo Cáo

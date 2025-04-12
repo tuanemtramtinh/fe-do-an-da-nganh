@@ -30,7 +30,7 @@ const handleChapter1 = async (inputId) => {
       if (stage1Response.status === 200) {
         const suggestEngines = stage1Response.data.data.engines;
         const calculate = document.querySelector(".calculate");
-
+        calculate.innerHTML = "";
         const calculateSuggest = document.createElement("div");
         calculateSuggest.classList.add("calculate-suggest");
 
@@ -184,6 +184,7 @@ const handleChapter1 = async (inputId) => {
 
     const displayChapter1Result = async (inputId, chapter1Result) => {
       const calculate = document.querySelector(".calculate");
+      calculate.innerHTML = "";
       const calculateSuggest = document.createElement("div");
       calculateSuggest.classList.add("calculate-suggest");
 
@@ -195,24 +196,26 @@ const handleChapter1 = async (inputId) => {
             <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
               <h2>Linh Kiện Phù Hợp</h2>
             </div>
-            <div class="calculate-suggest__list">
-              <div class="calculate-suggest__list-title">Động cơ</div>
-              <div class="calculate-suggest__list-wrapper">
-                <div class="calculate-suggest__item" engine-id="${engine._id}">
-                  <div class="calculate-suggest__item-name">${engine.kieu_dong_co}</div>
-                  <div class="calculate-suggest__item-manufacturer">
-                      Nhà sản xuất: <span>HCMUT </span>
+            <div class="product-detail__wrapper">
+              <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+              </div>
+              <div class="product-detail__content">
+                <div class="product-detail__title">${engine.kieu_dong_co}</div>
+                <div class="product-detail__manufacturer">Nhà sản xuất</div>
+                <div class="product-detail__suggest">
+                    <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
+                <div class="product-detail__desc">
+                  <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
+                  <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
+                </div>
+                <div class="product-detail__param">
+                  <div class="product-detail__param-title">Thông Số</div>
+                  <div class="product-detail__parm-list"> 
+                    <div class="product-detail__param-item">Công suất: ${engine.cong_suat_kW} kW</div>
+                    <div class="product-detail__param-item">Vận tốc vòng quay: ${engine.van_toc_quay_vgph} vòng/phút</div>
+                    <div class="product-detail__param-item">T<sub>K</sub> / T<sub>dn</sub>: ${engine.ti_so_momen}</div>
+                    <div class="product-detail__param-item">Khối lượng: ${engine.khoi_luong_kg} kg</div>
                   </div>
-                  <div class="calculate-suggest__item-parameter">
-                    <div>
-                      <span>Công suất: </span>
-                      <span>${engine.cong_suat_kW}</span>
-                    </div>
-                    <div> 
-                      <span>Vận tốc vòng quay: </span>
-                      <span>${engine.van_toc_quay_vgph}</div>
-                  </div>
-                  <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
                 </div>
               </div>
             </div>
@@ -485,7 +488,6 @@ const handleChapter2 = async (inputId) => {
     );
 
     const data = chapter2Result.data.data;
-    console.log(data);
     calculate.innerHTML = `
     <div class="calculate-result">
       <div class="container">
@@ -643,13 +645,24 @@ const main = async () => {
           t1: e.target.t1.value,
           t2: e.target.t2.value,
         };
-        console.log(data);
         const token = localStorage.getItem("token");
         if (!token) {
           alert("Bạn cần đăng nhập để sử dụng tính năng này");
           window.location.href = "/login.html";
           return;
         }
+
+        for (const [key, value] of Object.entries(data)) {
+          const number = parseFloat(value);
+          if (isNaN(number) || number < 0) {
+            alert(
+              `Đầu vào không hợp lệ với trường "${key}". Vui lòng nhập lại.`
+            );
+            e.target.reset();
+            return;
+          }
+        }
+
         const response = await axios.post(`${API_URL}/calculate/input`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -697,6 +710,36 @@ const main = async () => {
 
     calculateProgressItem[0].click();
   }
+
+  const calculateInput = document.querySelector(".calculate-input");
+  if (calculateInput) {
+    const form = calculateInput.querySelector(".section-3__form-wrapper");
+    const F = form.F;
+    const p = form.p;
+    const v = form.v;
+    const L = form.L;
+    const z = form.z;
+    const T1 = form.T1;
+    const T2 = form.T2;
+    const t1 = form.t1;
+    const t2 = form.t2;
+
+    const inputId = getUrlParams("inputId");
+    const response = await axios.get(
+      `${API_URL}/calculate/input?inputId=${inputId}`
+    );
+    const input = response.data.data;
+    console.log(input);
+    F.value = input.F;
+    p.value = input.p;
+    v.value = input.v;
+    L.value = input.L;
+    z.value = input.z;
+    T1.value = input.T1;
+    T2.value = input.T2;
+    t1.value = input.t1;
+    t2.value = input.t2;
+  }
   //End Calculate
 
   //History
@@ -735,6 +778,145 @@ const main = async () => {
     }
   }
   //End History
+
+  //Product List
+  const productList = document.querySelector(".product__list");
+  if (productList) {
+    try {
+      const page = getUrlParams("page") ? parseInt(getUrlParams("page")) : 1;
+      const response = await axios.get(`${API_URL}/engine?page=${page}`);
+      const products = response.data.data.engines;
+      const productsHtml = products.map(
+        (product) => `
+        <div class="product__item">
+          <div class="product__item-image"><img src="/assets/images/engine.png" alt=""></div>
+          <div class="product__item-desc"> 
+            <div class="product__item-title">${product.kieu_dong_co}</div>
+            <div class="product__item-content">Mô tả về động cơ ${product.kieu_dong_co}</div>
+          </div><a class="product__item-detail" href="/product-detail.html?engineCode=${product.kieu_dong_co}">Xem Chi Tiết</a>
+        </div>
+        `
+      );
+
+      productList.innerHTML = `${productsHtml.join("\n")}`;
+
+      //Pagination
+      const productPagination = document.querySelector(".product__pagination");
+      if (productPagination) {
+        const totalPage = response.data.data.totalPage;
+        const productPaginationArrow = productPagination.querySelectorAll(
+          ".product__pagination-arrow"
+        );
+        const previous = productPaginationArrow[0];
+        const next = productPaginationArrow[1];
+
+        // Disable previous button on first page
+        previous.disabled = page <= 1;
+
+        // Disable next button on last page
+        next.disabled = page >= totalPage;
+
+        const productPaginationList = productPagination.querySelector(
+          ".product__pagination-list"
+        );
+
+        // Logic for better pagination
+        const pagination = [];
+        const maxVisiblePages = 5; // Total number of page numbers to show
+        const sidePages = Math.floor(maxVisiblePages / 2); // Pages to show on each side of current
+
+        let startPage = Math.max(1, page - sidePages);
+        let endPage = Math.min(totalPage, startPage + maxVisiblePages - 1);
+
+        // Adjust startPage if we're at the end of the range
+        if (endPage === totalPage) {
+          startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        // Always show first page
+        if (startPage > 1) {
+          pagination.push(
+            `<a class="product__pagination-item" href="/product.html?page=1">1</a>`
+          );
+
+          // Add ellipsis if there's a gap
+          if (startPage > 2) {
+            pagination.push(
+              `<span class="product__pagination-ellipsis">...</span>`
+            );
+          }
+        }
+
+        // Add visible page numbers
+        for (let i = startPage; i <= endPage; i++) {
+          if (i === page) {
+            pagination.push(
+              `<a class="product__pagination-item active" href="/product.html?page=${i}">${i}</a>`
+            );
+          } else {
+            pagination.push(
+              `<a class="product__pagination-item" href="/product.html?page=${i}">${i}</a>`
+            );
+          }
+        }
+
+        // Always show last page
+        if (endPage < totalPage) {
+          // Add ellipsis if there's a gap
+          if (endPage < totalPage - 1) {
+            pagination.push(
+              `<span class="product__pagination-ellipsis">...</span>`
+            );
+          }
+
+          pagination.push(
+            `<a class="product__pagination-item" href="/product.html?page=${totalPage}">${totalPage}</a>`
+          );
+        }
+
+        productPaginationList.innerHTML = pagination.join("\n");
+      }
+
+      //End Pagination
+    } catch (error) {}
+  }
+  //End Product List
+
+  //Product Detail
+  const productDetail = document.querySelector(".product-detail__wrapper");
+  if (productDetail) {
+    try {
+      const engineCode = getUrlParams("engineCode");
+      const response = await axios.get(`${API_URL}/engine/${engineCode}`);
+      console.log(response);
+
+      const engine = response.data.data;
+
+      productDetail.innerHTML = `
+      <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+      </div>
+      <div class="product-detail__content">
+        <div class="product-detail__title">${engine.kieu_dong_co}</div>
+        <div class="product-detail__manufacturer">Nhà sản xuất</div>
+        <div class="product-detail__suggest">
+            <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
+        <div class="product-detail__desc">
+          <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
+          <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
+        </div>
+        <div class="product-detail__param">
+          <div class="product-detail__param-title">Thông Số</div>
+          <div class="product-detail__parm-list"> 
+            <div class="product-detail__param-item">Công suất: ${engine.cong_suat_kW} kW</div>
+            <div class="product-detail__param-item">Vận tốc vòng quay: ${engine.van_toc_quay_vgph} vòng/phút</div>
+            <div class="product-detail__param-item">T<sub>K</sub> / T<sub>dn</sub>: ${engine.ti_so_momen}</div>
+            <div class="product-detail__param-item">Khối lượng: ${engine.khoi_luong_kg} kg</div>
+          </div>
+        </div>
+      </div>`;
+    } catch (error) {}
+  }
+  //End Product Detail
 };
 
 main();

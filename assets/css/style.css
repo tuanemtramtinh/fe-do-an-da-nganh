@@ -46,7 +46,9 @@ button {
   outline: none;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid black;
   border-collapse: collapse;
 }
@@ -69,11 +71,11 @@ table, th, td {
   height: 100%;
 }
 
-.swiper-wrapper{
+.swiper-wrapper {
   padding-bottom: 30px;
 }
 
-.swiper-pagination{
+.swiper-pagination {
   bottom: 0px !important;
 }
 
@@ -108,7 +110,7 @@ table, th, td {
   color: #2563EB;
 }
 
-.header__logo{
+.header__logo {
   width: 25%;
 }
 
@@ -131,19 +133,19 @@ table, th, td {
   /* margin-right: 15px; */
 }
 
-.header__user a:hover{
+.header__user a:hover {
   color: #2563EB;
 }
 
-.header__user span{
+.header__user span {
   display: none;
 }
 
-.header__user .logout.active{
+.header__user .logout.active {
   display: inline;
 }
 
-.header__user .logout:hover{
+.header__user .logout:hover {
   color: #2563EB;
   cursor: pointer;
 }
@@ -193,7 +195,7 @@ table, th, td {
 /* SECTION 2 */
 
 .section-2__wrapper {
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .section-2__title {
@@ -271,6 +273,10 @@ table, th, td {
   grid-template-columns: repeat(2, 1fr);
   column-gap: 110px;
   row-gap: 40px;
+}
+
+.section-3__form-wrapper input {
+  font-size: 18px;
 }
 
 .section-3__form-wrapper div:last-child {
@@ -434,8 +440,8 @@ table, th, td {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 25px;
-  margin-top: 70px;
-  margin-bottom: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   display: flex;
   gap: 25px;
   border-radius: 10px;
@@ -495,7 +501,7 @@ table, th, td {
 }
 
 .product__list {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -510,7 +516,7 @@ table, th, td {
 
 .product__item-image {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .product__item-image img {
@@ -518,6 +524,8 @@ table, th, td {
   aspect-ratio: 400/180;
   object-fit: contain;
   object-position: center;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .product__item-title {
@@ -570,6 +578,25 @@ table, th, td {
 }
 
 .product__pagination-item {
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: white;
+  border: 1px solid #DFE3E8;
+  border-radius: 4px;
+  color: black;
+}
+
+.product__pagination-item.active {
+  color: #2563EB;
+  border: 1px solid #2563EB;
+}
+
+.product__pagination-ellipsis {
   width: 50px;
   height: 50px;
   display: inline-flex;
@@ -661,7 +688,7 @@ table, th, td {
   margin-right: 10px;
 }
 
-.product-detail__param-title{
+.product-detail__param-title {
   font-size: 25px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -673,12 +700,17 @@ table, th, td {
   gap: 15px;
 }
 
-.product-detail__param-item{
+.product-detail__param-item {
   width: 100%;
   height: 50px;
   background-color: #D9D9D9;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
+
 /* END PRODUCT */
 
 /* CALCULATE */
@@ -711,6 +743,10 @@ table, th, td {
   font-weight: 600;
   font-style: italic;
   color: rgba(0, 0, 0, 0.7);
+}
+
+.calculate-input{
+  margin-top: 50px;
 }
 
 .calculate-progress__wrapper {
@@ -756,7 +792,7 @@ table, th, td {
 }
 
 .calculate-suggest {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .calculate-suggest__wrapper {
@@ -803,11 +839,11 @@ table, th, td {
   margin-bottom: 15px;
 }
 
-.calculate-suggest__item-parameter div{
+.calculate-suggest__item-parameter div {
   font-style: italic;
 }
 
-.calculate-suggest__item-parameter div span:first-child{
+.calculate-suggest__item-parameter div span:first-child {
   font-weight: 700;
 }
 
@@ -849,7 +885,7 @@ table, th, td {
   border-radius: 10px;
 }
 
-.calculate-suggest__item-save:hover{
+.calculate-suggest__item-save:hover {
   color: white;
   background-color: #2563EB;
 }
@@ -903,23 +939,24 @@ table, th, td {
   gap: 40px;
 }
 
-.calculate-result__element h2{
+.calculate-result__element h2 {
   margin-bottom: 15px;
   color: #2563EB;
   text-align: center;
 }
 
-.calculate-result__body table{
+.calculate-result__body table {
   width: 100%;
   /* table-layout: fixed;  */
   font-size: 18px;
 }
 
-.calculate-result__body table th,td{
+.calculate-result__body table th,
+td {
   padding: 10px;
 }
 
-.calculate__export-button{
+.calculate__export-button {
   display: block;
   margin-bottom: 50px;
   width: 100%;

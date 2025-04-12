@@ -118,6 +118,9 @@ table, th, td {
 
 .header__user {
   width: 25%;
+  display: flex;
+  justify-content: end;
+  gap: 15px;
 }
 
 /* .header__user:hover {
@@ -125,7 +128,7 @@ table, th, td {
 } */
 
 .header__user a {
-  margin-right: 15px;
+  /* margin-right: 15px; */
 }
 
 .header__user a:hover{

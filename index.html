@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>Trang Chủ</title>
   </head>
@@ -68,47 +70,57 @@
             <h2>Nhập vào trả ra</h2>
             <p>nhanh như chớp</p>
           </div>
-          <form class="section-3__form" action="http://localhost:3000/calculate" method="post">
-            <div class="section-3__form-wrapper">
-              <div> 
-                <label class="form-label" for="F">Lực trên vòng xích tải F(N)</label>
-                <input type="text" id="F" name="F">
+          <div class="section-3__body">
+            <div class="section-3__choice"><span>
+                Nhập<i class="fa-regular fa-keyboard"></i> </span><span>
+                 Tải hình ảnh<i class="fa-solid fa-upload"></i></span></div>
+            <form class="section-3__form" action="http://localhost:3000/calculate" method="post">
+              <div class="section-3__form-wrapper">
+                <div> 
+                  <label class="form-label" for="F">Lực trên vòng xích tải F(N)</label>
+                  <input type="text" id="F" name="F">
+                </div>
+                <div> 
+                  <label class="form-label" for="p">Bước xích tải, p(mm)</label>
+                  <input type="text" id="p" name="p">
+                </div>
+                <div> 
+                  <label class="form-label" for="v">Vận tốc xích tải, v (m/s)</label>
+                  <input type="text" id="v" name="v">
+                </div>
+                <div> 
+                  <label class="form-label" for="L">Thời gian phục vụ, L(năm)</label>
+                  <input type="text" id="L" name="L">
+                </div>
+                <div> 
+                  <label class="form-label" for="z">Số răng đĩa xích tải dẫn, z (răng)</label>
+                  <input type="text" id="z" name="z">
+                </div>
+                <div> 
+                  <label class="form-label" for="T1">Moment xoắn ban đầu, T1</label>
+                  <input type="text" id="T1" name="T1">
+                </div>
+                <div> 
+                  <label class="form-label" for="T2">Moment xoắn sau đó, T2</label>
+                  <input type="text" id="T2" name="T2">
+                </div>
+                <div> 
+                  <label class="form-label" for="t1">Thời gian xoắn lúc đầu, t1</label>
+                  <input type="text" id="t1" name="t1">
+                </div>
+                <div> 
+                  <label class="form-label" for="t2">Thời gian xoắn lúc sau, t2</label>
+                  <input type="text" id="t2" name="t2">
+                </div>
               </div>
-              <div> 
-                <label class="form-label" for="p">Bước xích tải, p(mm)</label>
-                <input type="text" id="p" name="p">
-              </div>
-              <div> 
-                <label class="form-label" for="v">Vận tốc xích tải, v (m/s)</label>
-                <input type="text" id="v" name="v">
-              </div>
-              <div> 
-                <label class="form-label" for="L">Thời gian phục vụ, L(năm)</label>
-                <input type="text" id="L" name="L">
-              </div>
-              <div> 
-                <label class="form-label" for="z">Số răng đĩa xích tải dẫn, z (răng)</label>
-                <input type="text" id="z" name="z">
-              </div>
-              <div> 
-                <label class="form-label" for="T1">Moment xoắn ban đầu, T1</label>
-                <input type="text" id="T1" name="T1">
-              </div>
-              <div> 
-                <label class="form-label" for="T2">Moment xoắn sau đó, T2</label>
-                <input type="text" id="T2" name="T2">
-              </div>
-              <div> 
-                <label class="form-label" for="t1">Thời gian xoắn lúc đầu, t1</label>
-                <input type="text" id="t1" name="t1">
-              </div>
-              <div> 
-                <label class="form-label" for="t2">Thời gian xoắn lúc sau, t2</label>
-                <input type="text" id="t2" name="t2">
-              </div>
-            </div>
-            <button type="submit">Tính toán</button>
-          </form>
+              <button type="submit">Tính toán</button>
+            </form>
+            <form class="section-3__form-image" action="" enctype="multipart/form-data"> 
+              <label for="image">Tải hình ảnh lên và cảm nhận sự kỳ diệu này nhé ! </label>
+              <input class="filepond" type="file" name="image" id="image">
+              <button type="submit">Tải ảnh lên</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -125,6 +137,11 @@
       </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"> </script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"> </script>
+    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"> </script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"> </script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"> </script>
     <script src="/assets/js/script.js"> </script>
   </body>

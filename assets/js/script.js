@@ -13,6 +13,39 @@ if (document.querySelector(".mySwiper")) {
 }
 //End Swiper
 
+//FilePond
+FilePond.registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginFileValidateSize,
+  FilePondPluginFileValidateType,
+  FilePondPluginImageExifOrientation
+);
+
+const filePond = document.querySelector(".filepond");
+if (filePond) {
+  FilePond.create(filePond, {
+    credits: null,
+    allowImagePreview: true,
+    imagePreviewHeight: 600, // Increase this for a larger preview
+    imagePreviewUpscale: true, // Prevent downscaling
+    allowImageFilter: false,
+    allowImageExifOrientation: false,
+    allowImageCrop: false,
+    itemInsertLocation: "after",
+    acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg", "image/webp"],
+    fileValidateTypeDetectType: (source, type) =>
+      new Promise((resolve) => {
+        if (source.name && source.name.toLowerCase().endsWith(".webp")) {
+          resolve("image/webp");
+        } else {
+          resolve(type);
+        }
+      }),
+    storeAsFile: true,
+  });
+}
+//End FilePond
+
 const getUrlParams = (param, defaultValue = null) => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param) || defaultValue;
@@ -481,7 +514,7 @@ const handleChapter2 = async (inputId) => {
     };
 
     const calculate = document.querySelector(".calculate");
-    calculate.innerHTML = "";
+    // calculate.innerHTML = "";
 
     const chapter2Result = await axios.get(
       `${API_URL}/calculate/chapter-2?inputId=${inputId}`
@@ -682,6 +715,123 @@ const main = async () => {
     });
   }
   //End Take input
+
+  //Take image Input
+  const imageForm = document.querySelector(".section-3__form-image");
+  if (imageForm) {
+    imageForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const pond = FilePond.find(document.querySelector(".filepond"));
+      const files = pond.getFiles();
+      const file = files[0].file;
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
+
+      try {
+        imageForm.innerHTML = `<div class="ai-loader">
+          <div class="spinner"></div>
+          <p><i class="fa-solid fa-robot"></i> Đang được xử lý bới AI</p>
+        </div>`;
+
+        const response = await axios.post(`${API_URL}/calculate/ai`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Ensure the server knows it's a file
+          },
+        });
+
+        console.log(response);
+
+        const data = response.data.data;
+
+        imageForm.innerHTML = `<label for="image">Tải hình ảnh lên và cảm nhận sự kỳ diệu này nhé ! </label>
+              <input class="filepond" type="file" name="image" id="image">
+              <button type="submit">Tải ảnh lên</button>`;
+
+        const filePond = document.querySelector(".filepond");
+        if (filePond) {
+          FilePond.create(filePond, {
+            credits: null,
+            allowImagePreview: true,
+            imagePreviewHeight: 600, // Increase this for a larger preview
+            imagePreviewUpscale: true, // Prevent downscaling
+            allowImageFilter: false,
+            allowImageExifOrientation: false,
+            allowImageCrop: false,
+            itemInsertLocation: "after",
+            acceptedFileTypes: [
+              "image/png",
+              "image/jpg",
+              "image/jpeg",
+              "image/webp",
+            ],
+            fileValidateTypeDetectType: (source, type) =>
+              new Promise((resolve) => {
+                if (
+                  source.name &&
+                  source.name.toLowerCase().endsWith(".webp")
+                ) {
+                  resolve("image/webp");
+                } else {
+                  resolve(type);
+                }
+              }),
+            storeAsFile: true,
+          });
+        }
+
+        const inputChoice = document.querySelector(".section-3__choice span");
+
+        inputChoice.click();
+
+        const inputForm = document.querySelector(".section-3__form");
+        inputForm.F.value = data.F;
+        inputForm.L.value = data.L;
+        inputForm.T1.value = data.T1;
+        inputForm.T2.value = data.T2;
+        inputForm.p.value = data.p;
+        inputForm.t1.value = data.t1;
+        inputForm.t2.value = data.t2;
+        inputForm.z.value = data.z;
+        inputForm.v.value = data.v;
+      } catch (error) {
+        console.log("Upload failed", error);
+      }
+
+      // console.log(file);
+    });
+  }
+  //End Take image Input
+
+  //Change Input
+  const section3Choice = document.querySelector(".section-3__choice");
+  if (section3Choice) {
+    const [inputChoice, imageChoice] = section3Choice.querySelectorAll("span");
+
+    const section3Body = document.querySelector(".section-3__body");
+    const [inputForm, imageForm] = section3Body.querySelectorAll("form");
+
+    inputChoice.addEventListener("click", (e) => {
+      inputForm.style.display = "block";
+      imageForm.style.display = "none";
+      inputChoice.classList.add("active");
+      imageChoice.classList.remove("active");
+    });
+
+    imageChoice.addEventListener("click", (e) => {
+      inputForm.style.display = "none";
+      imageForm.style.display = "flex";
+      inputChoice.classList.remove("active");
+      imageChoice.classList.add("active");
+    });
+    inputChoice.click();
+  }
+  //End Change Input
 
   //Calculate
   const calculateProgressList = document.querySelector(

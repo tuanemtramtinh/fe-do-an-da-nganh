@@ -38,43 +38,54 @@ block main
               h3 Lấy kết quả
             .section-2__item-content Nhận được kết quả trong tích tắc, bỏ đi quy tắc tính toán truyền thống thông thường
 
-
   .section-3
     .container
       .section-3__wrapper 
         .section-3__title
           h2 Nhập vào trả ra
           p nhanh như chớp
-        form.section-3__form(action="http://localhost:3000/calculate" method="post")
-          .section-3__form-wrapper
-            div 
-              label.form-label(for="F") Lực trên vòng xích tải F(N)
-              input(type="text" id="F" name="F")
-            div 
-              label.form-label(for="p") Bước xích tải, p(mm)
-              input(type="text" id="p" name="p")
-            div 
-              label.form-label(for="v") Vận tốc xích tải, v (m/s)
-              input(type="text" id="v" name="v")
-            div 
-              label.form-label(for="L") Thời gian phục vụ, L(năm)
-              input(type="text" id="L" name="L")
-            div 
-              label.form-label(for="z") Số răng đĩa xích tải dẫn, z (răng)
-              input(type="text" id="z" name="z")
-            div 
-              label.form-label(for="T1") Moment xoắn ban đầu, T1
-              input(type="text" id="T1" name="T1")
-            div 
-              label.form-label(for="T2") Moment xoắn sau đó, T2
-              input(type="text" id="T2" name="T2")
-            div 
-              label.form-label(for="t1") Thời gian xoắn lúc đầu, t1
-              input(type="text" id="t1" name="t1")
-            div 
-              label.form-label(for="t2") Thời gian xoắn lúc sau, t2
-              input(type="text" id="t2" name="t2")
-          button(type="submit") Tính toán
+        .section-3__body
+          .section-3__choice
+            span
+              | Nhập
+              <i class="fa-regular fa-keyboard"></i> 
+            span 
+              | Tải hình ảnh
+              <i class="fa-solid fa-upload"></i>
+          form.section-3__form(action="http://localhost:3000/calculate" method="post")
+            .section-3__form-wrapper
+              div 
+                label.form-label(for="F") Lực trên vòng xích tải F(N)
+                input(type="text" id="F" name="F")
+              div 
+                label.form-label(for="p") Bước xích tải, p(mm)
+                input(type="text" id="p" name="p")
+              div 
+                label.form-label(for="v") Vận tốc xích tải, v (m/s)
+                input(type="text" id="v" name="v")
+              div 
+                label.form-label(for="L") Thời gian phục vụ, L(năm)
+                input(type="text" id="L" name="L")
+              div 
+                label.form-label(for="z") Số răng đĩa xích tải dẫn, z (răng)
+                input(type="text" id="z" name="z")
+              div 
+                label.form-label(for="T1") Moment xoắn ban đầu, T1
+                input(type="text" id="T1" name="T1")
+              div 
+                label.form-label(for="T2") Moment xoắn sau đó, T2
+                input(type="text" id="T2" name="T2")
+              div 
+                label.form-label(for="t1") Thời gian xoắn lúc đầu, t1
+                input(type="text" id="t1" name="t1")
+              div 
+                label.form-label(for="t2") Thời gian xoắn lúc sau, t2
+                input(type="text" id="t2" name="t2")
+            button(type="submit") Tính toán
+          form.section-3__form-image(action="" enctype="multipart/form-data") 
+            label(for="image") Tải hình ảnh lên và cảm nhận sự kỳ diệu này nhé ! 
+            input(type="file" name="image" id="image" class="filepond")
+            button(type="submit") Tải ảnh lên
 
   //- .section-4
   //-   .container

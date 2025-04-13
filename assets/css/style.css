@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+:root {
+  --primary-start: #4facfe;
+  --primary-end: #00f2fe;
+  --bg: #ffffff;
+  --text: #333333;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
@@ -51,6 +58,72 @@ th,
 td {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+.ai-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ai-loader p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--primary-start), var(--primary-end), var(--primary-start));
+  animation: spin 1.5s linear infinite;
+  box-shadow:
+    0 0 8px rgba(79, 172, 254, 0.6),
+    0 0 16px rgba(0, 242, 254, 0.4);
+  margin-bottom: 1rem;
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  background: var(--bg);
+  border-radius: 50%;
+}
+
+.ai-loader p {
+  color: var(--text);
+  font-size: 1rem;
+  animation: fade 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.filepond--drop-label {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  border-radius: 15px;
 }
 
 .form-label {
@@ -259,6 +332,68 @@ td {
   font-weight: 600;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.7);
+}
+
+.section-3__choice {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 50px;
+}
+
+.section-3__choice span {
+  background-color: #EEF3FF;
+  padding: 10px;
+  width: 230px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.section-3__choice span.active {
+  color: white;
+  background-color: #2563EB;
+}
+
+.section-3__choice span i {
+  margin-left: 10px;
+}
+
+.section-3__form-image {
+  display: none;
+  min-height: 784px;
+  background-color: #EEF3FF;
+  padding: 60px 125px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.section-3__form-image label {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-3__form-image button {
+  margin-top: 30px;
+  background-color: #2563EB;
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+  color: white;
+  border-radius: 10px;
+  padding: 20px 0px;
+  cursor: pointer;
 }
 
 .section-3__form {
@@ -745,7 +880,7 @@ td {
   color: rgba(0, 0, 0, 0.7);
 }
 
-.calculate-input{
+.calculate-input {
   margin-top: 50px;
 }
 

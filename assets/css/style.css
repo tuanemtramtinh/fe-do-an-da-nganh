@@ -926,6 +926,51 @@ td {
   background-color: #2563EB;
 }
 
+.calculate-chapter-1-input {
+  margin-bottom: 50px;
+}
+
+.calculate-chapter-1-input__wrapper {
+  padding: 50px 80px;
+  background-color: #EEF3FF;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.calculate-chapter-1-input__wrapper div label{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.calculate-chapter-1-input__wrapper input {
+  width: 100%;
+  padding: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+}
+
+.calculate-chapter-1-input__wrapper button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563EB;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.calculate-chapter-1-input__wrapper button:disabled {
+  background-color: #93c5fd; /* lighter blue */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .calculate-suggest {
   margin-bottom: 50px;
 }

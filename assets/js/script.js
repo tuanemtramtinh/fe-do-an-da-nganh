@@ -53,17 +53,180 @@ const getUrlParams = (param, defaultValue = null) => {
 
 const handleChapter1 = async (inputId) => {
   try {
-    const displayChapter1CalculateProcess = async (inputId) => {
-      const stage1Response = await axios.post(
-        `${API_URL}/calculate/chapter-1/stage-1`,
-        {
-          inputId,
-        }
-      );
-      if (stage1Response.status === 200) {
-        const suggestEngines = stage1Response.data.data.engines;
-        const calculate = document.querySelector(".calculate");
-        calculate.innerHTML = "";
+    const displayChapter1Input = () => {
+      const calculateInput = document.createElement("div");
+      calculateInput.classList.add("calculate-chapter-1-input");
+      calculateInput.innerHTML = `
+        <div class="container">
+          <form class="calculate-chapter-1-input__wrapper">
+            <div> 
+              <label for="n_kn">Hiệu suất khớp nối (n_kn)</label>
+              <input type="number" step="0.01" min="0" max="10" name="n_kn">
+            </div>
+            <div>
+              <label for="n_d">Hiệu suất của bộ truyền đai (n_d)</label>
+              <input type="number" step="0.01" min="0" max="10"  name="n_d">
+            </div>
+            <div>
+              <label for="n_brt">Hiệu suất của bộ truyền bánh răng trụ (n_brt)</label>
+              <input type="number" step="0.01" min="0" max="10"  name="n_brt">
+            </div>
+            <div>
+              <label for="n_tv">Hiệu suất của bộ truyền trục vít (n_tv)</label>
+              <input type="number" step="0.01" min="0" max="10"  name="n_tv">
+            </div>
+            <div>
+              <label for="n_ol">Hiệu suất của một cặp ổ lăn (n_ol)</label>
+              <input type="number" step="0.01" min="0" max="10"  name="n_ol">
+            </div>
+            <button type="submit">Lưu</button>
+          </form>
+        </div>
+      `;
+      return calculateInput;
+    };
+
+    const displayChapter1Result = async (inputId, chapter1Result) => {
+      const calculate = document.querySelector(".calculate");
+      // calculate.innerHTML = "";
+      const calculateSuggest = document.createElement("div");
+      calculateSuggest.classList.add("calculate-suggest");
+
+      const engine = chapter1Result.engineId;
+
+      calculateSuggest.innerHTML = `
+      <div class="container">
+          <div class="calculate-suggest__wrapper">
+            <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+              <h2>Linh Kiện Phù Hợp</h2>
+            </div>
+            <div class="product-detail__wrapper">
+              <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+              </div>
+              <div class="product-detail__content">
+                <div class="product-detail__title">${engine.kieu_dong_co}</div>
+                <div class="product-detail__manufacturer">Nhà sản xuất</div>
+                <div class="product-detail__suggest">
+                    <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
+                <div class="product-detail__desc">
+                  <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
+                  <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
+                </div>
+                <div class="product-detail__param">
+                  <div class="product-detail__param-title">Thông Số</div>
+                  <div class="product-detail__parm-list">
+                    <div class="product-detail__param-item">Công suất: ${engine.cong_suat_kW} kW</div>
+                    <div class="product-detail__param-item">Vận tốc vòng quay: ${engine.van_toc_quay_vgph} vòng/phút</div>
+                    <div class="product-detail__param-item">T<sub>K</sub> / T<sub>dn</sub>: ${engine.ti_so_momen}</div>
+                    <div class="product-detail__param-item">Khối lượng: ${engine.khoi_luong_kg} kg</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const calculationResult = document.createElement("div");
+      calculationResult.classList.add("calculate-result");
+
+      const table = `
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Thông số</th>
+                      <th>Động cơ</th>
+                      <th>Trục I</th>
+                      <th colspan="2">Trục II</th>
+                      <th colspan="2">Trục II</th>
+                      <th>Trục III</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>P(kw)</td>
+                      <td>${chapter1Result.P_dc}</td>
+                      <td>${chapter1Result.P_I}</td>
+                      <td colspan="4">${chapter1Result.P_II}</td>
+                      <td>${chapter1Result.P_III}</td>
+                    </tr>
+                    <tr>
+                      <td>n (vg/phút)</td>
+                      <td>${chapter1Result.n_dc}</td>
+                      <td>${chapter1Result.n_I}</td>
+                      <td colspan="4">${chapter1Result.n_II}</td>
+                      <td>${chapter1Result.n_III}</td>
+                    </tr>
+                    <tr>
+                      <td>u </td>
+                      <td>${chapter1Result.u_dc}</td>
+                      <td colspan="3">${chapter1Result.u_I_II}</td>
+                      <td colspan="3">${chapter1Result.u_II_III} </td>
+                    </tr>
+                    <tr>
+                      <td>T(N.mm)</td>
+                      <td>${chapter1Result.T_dc}</td>
+                      <td>${chapter1Result.T_I}</td>
+                      <td colspan="4">${chapter1Result.T_II}</td>
+                      <td>${chapter1Result.T_III}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                `;
+
+      calculationResult.innerHTML = `
+                <div class="container">
+                  <div class="calculate-result__wrapper">
+                    <div class="calculate-result__title"><span>1</span>
+                      <h3>Tính chọn động cơ điện</h3>
+                    </div>
+                    <div class="calculate-result__body">
+                      ${table}
+                    </div>
+                  </div>
+                </div>
+                `;
+
+      const calculateExportButton = document.createElement("div");
+      calculateExportButton.classList.add(".calculate__export");
+      calculateExportButton.innerHTML = `
+      <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      `;
+
+      calculate.append(calculateSuggest);
+      calculate.append(calculationResult);
+      calculate.append(calculateExportButton);
+    };
+
+    const response = await axios.get(
+      `${API_URL}/calculate/chapter-1?inputId=${inputId}`,
+      { headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
+    );
+    const chapter1 = response.data.data;
+
+    const calculate = document.querySelector(".calculate");
+    calculate.innerHTML = "";
+
+    calculate.appendChild(displayChapter1Input());
+
+    const calculateInput = document.querySelector(
+      ".calculate-chapter-1-input__wrapper"
+    );
+
+    if (chapter1.status === "initial") {
+      calculateInput.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const n_kn = e.target[0].value;
+        const n_d = e.target[1].value;
+        const n_brt = e.target[2].value;
+        const n_tv = e.target[3].value;
+        const n_ol = e.target[4].value;
+
+        const response = await axios.get(
+          `${API_URL}/calculate/chapter-1?inputId=${inputId}&n_kn=${n_kn}&n_d=${n_d}&n_brt=${n_brt}&n_tv=${n_tv}&n_ol=${n_ol}`
+        );
+        const chapter1 = response.data.data;
+        const suggestEngines = chapter1.engines;
         const calculateSuggest = document.createElement("div");
         calculateSuggest.classList.add("calculate-suggest");
 
@@ -79,7 +242,7 @@ const handleChapter1 = async (inputId) => {
                   <span>Công suất: </span>
                   <span>${engine.cong_suat_kW}</span>
                 </div>
-                <div> 
+                <div>
                   <span>Vận tốc vòng quay: </span>
                   <span>${engine.van_toc_quay_vgph}</div>
               </div>
@@ -128,12 +291,8 @@ const handleChapter1 = async (inputId) => {
           button.addEventListener("click", async (e) => {
             try {
               const engineId = e.target.getAttribute("engine-id");
-              const response = await axios.post(
-                `${API_URL}/calculate/chapter-1/stage-2`,
-                {
-                  inputId,
-                  engineId,
-                }
+              const response = await axios.get(
+                `${API_URL}/calculate/chapter-1?inputId=${inputId}&engineId=${engineId}`
               );
               if (response.status === 200) {
                 button.classList.add("active");
@@ -142,9 +301,9 @@ const handleChapter1 = async (inputId) => {
                 calculationResult.classList.add("calculate-result");
 
                 const table = `
-                <table> 
-                  <thead> 
-                    <tr> 
+                <table>
+                  <thead>
+                    <tr>
                       <th>Thông số</th>
                       <th>Động cơ</th>
                       <th>Trục I</th>
@@ -153,8 +312,8 @@ const handleChapter1 = async (inputId) => {
                       <th>Trục III</th>
                     </tr>
                   </thead>
-                  <tbody> 
-                    <tr> 
+                  <tbody>
+                    <tr>
                       <td>P(kw)</td>
                       <td>${engine.P_dc}</td>
                       <td>${engine.P_I}</td>
@@ -168,13 +327,13 @@ const handleChapter1 = async (inputId) => {
                       <td colspan="4">${engine.n_II}</td>
                       <td>${engine.n_III}</td>
                     </tr>
-                    <tr> 
+                    <tr>
                       <td>u </td>
                       <td>${engine.u_dc}</td>
                       <td colspan="3">${engine.u_I_II}</td>
                       <td colspan="3">${engine.u_II_III} </td>
                     </tr>
-                    <tr> 
+                    <tr>
                       <td>T(N.mm)</td>
                       <td>${engine.T_dc}</td>
                       <td>${engine.T_I}</td>
@@ -212,57 +371,101 @@ const handleChapter1 = async (inputId) => {
             }
           });
         });
-      }
-    };
+      });
+    } else if (chapter1.status === "stage-1" || chapter1.status === "finish") {
+      console.log(chapter1.n_kn);
+      calculateInput.n_ol.value = chapter1.n_ol;
+      calculateInput.n_tv.value = chapter1.n_tv;
+      calculateInput.n_brt.value = chapter1.n_brt;
+      calculateInput.n_d.value = chapter1.n_d;
+      calculateInput.n_kn.value = chapter1.n_kn;
+      calculateInput.n_ol.disabled = true;
+      calculateInput.n_tv.disabled = true;
+      calculateInput.n_brt.disabled = true;
+      calculateInput.n_d.disabled = true;
+      calculateInput.n_kn.disabled = true;
+      const button = calculateInput.querySelector("button");
+      button.style.display = "none";
 
-    const displayChapter1Result = async (inputId, chapter1Result) => {
-      const calculate = document.querySelector(".calculate");
-      calculate.innerHTML = "";
-      const calculateSuggest = document.createElement("div");
-      calculateSuggest.classList.add("calculate-suggest");
+      if (chapter1.status === "stage-1") {
+        const suggestEngines = chapter1.engines;
+        const calculateSuggest = document.createElement("div");
+        calculateSuggest.classList.add("calculate-suggest");
 
-      const engine = chapter1Result.engineId;
-
-      calculateSuggest.innerHTML = `
-      <div class="container">
-          <div class="calculate-suggest__wrapper">
-            <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
-              <h2>Linh Kiện Phù Hợp</h2>
-            </div>
-            <div class="product-detail__wrapper">
-              <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+        const suggestEnginesHTML = suggestEngines.map(
+          (engine) =>
+            `<div class="calculate-suggest__item swiper-slide" engine-id="${engine._id}">
+              <div class="calculate-suggest__item-name">${engine.kieu_dong_co}</div>
+              <div class="calculate-suggest__item-manufacturer">
+                  Nhà sản xuất: <span>HCMUT </span>
               </div>
-              <div class="product-detail__content">
-                <div class="product-detail__title">${engine.kieu_dong_co}</div>
-                <div class="product-detail__manufacturer">Nhà sản xuất</div>
-                <div class="product-detail__suggest">
-                    <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
-                <div class="product-detail__desc">
-                  <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
-                  <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
+              <div class="calculate-suggest__item-parameter">
+                <div>
+                  <span>Công suất: </span>
+                  <span>${engine.cong_suat_kW}</span>
                 </div>
-                <div class="product-detail__param">
-                  <div class="product-detail__param-title">Thông Số</div>
-                  <div class="product-detail__parm-list"> 
-                    <div class="product-detail__param-item">Công suất: ${engine.cong_suat_kW} kW</div>
-                    <div class="product-detail__param-item">Vận tốc vòng quay: ${engine.van_toc_quay_vgph} vòng/phút</div>
-                    <div class="product-detail__param-item">T<sub>K</sub> / T<sub>dn</sub>: ${engine.ti_so_momen}</div>
-                    <div class="product-detail__param-item">Khối lượng: ${engine.khoi_luong_kg} kg</div>
-                  </div>
-                </div>
+                <div>
+                  <span>Vận tốc vòng quay: </span>
+                  <span>${engine.van_toc_quay_vgph}</div>
               </div>
+              <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
+              <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
+            </div>`
+        );
+
+        const suggestEngineList = `
+          <div class="calculate-suggest__list">
+            <div class="calculate-suggest__list-title">Động cơ</div>
+            <div class="calculate-suggest__list-wrapper swiper mySwiper">
+              <div class="swiper-wrapper">
+                ${suggestEnginesHTML.join("\n")}
+              </div>
+              <div class="swiper-pagination"></div>
             </div>
           </div>
-        </div>
-      `;
+        `;
 
-      const calculationResult = document.createElement("div");
-      calculationResult.classList.add("calculate-result");
+        calculateSuggest.innerHTML = `
+         <div class="container">
+            <div class="calculate-suggest__wrapper">
+              <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+                <h2>Linh Kiện Phù Hợp</h2>
+              </div>
+              ${suggestEngineList}
+            </div>
+          </div>
+        `;
 
-      const table = `
-                <table> 
-                  <thead> 
-                    <tr> 
+        calculate.appendChild(calculateSuggest);
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+        //Handle Save Button
+        const saveButtons = document.querySelectorAll(
+          ".calculate-suggest__item-save"
+        );
+        saveButtons.forEach((button) => {
+          button.addEventListener("click", async (e) => {
+            try {
+              const engineId = e.target.getAttribute("engine-id");
+              const response = await axios.get(
+                `${API_URL}/calculate/chapter-1?inputId=${inputId}&engineId=${engineId}`
+              );
+              if (response.status === 200) {
+                button.classList.add("active");
+                const engine = response.data.data;
+                const calculationResult = document.createElement("div");
+                calculationResult.classList.add("calculate-result");
+
+                const table = `
+                <table>
+                  <thead>
+                    <tr>
                       <th>Thông số</th>
                       <th>Động cơ</th>
                       <th>Trục I</th>
@@ -271,39 +474,39 @@ const handleChapter1 = async (inputId) => {
                       <th>Trục III</th>
                     </tr>
                   </thead>
-                  <tbody> 
-                    <tr> 
+                  <tbody>
+                    <tr>
                       <td>P(kw)</td>
-                      <td>${chapter1Result.P_dc}</td>
-                      <td>${chapter1Result.P_I}</td>
-                      <td colspan="4">${chapter1Result.P_II}</td>
-                      <td>${chapter1Result.P_III}</td>
+                      <td>${engine.P_dc}</td>
+                      <td>${engine.P_I}</td>
+                      <td colspan="4">${engine.P_II}</td>
+                      <td>${engine.P_III}</td>
                     </tr>
                     <tr>
                       <td>n (vg/phút)</td>
-                      <td>${chapter1Result.n_dc}</td>
-                      <td>${chapter1Result.n_I}</td>
-                      <td colspan="4">${chapter1Result.n_II}</td>
-                      <td>${chapter1Result.n_III}</td>
+                      <td>${engine.n_dc}</td>
+                      <td>${engine.n_I}</td>
+                      <td colspan="4">${engine.n_II}</td>
+                      <td>${engine.n_III}</td>
                     </tr>
-                    <tr> 
+                    <tr>
                       <td>u </td>
-                      <td>${chapter1Result.u_dc}</td>
-                      <td colspan="3">${chapter1Result.u_I_II}</td>
-                      <td colspan="3">${chapter1Result.u_II_III} </td>
+                      <td>${engine.u_dc}</td>
+                      <td colspan="3">${engine.u_I_II}</td>
+                      <td colspan="3">${engine.u_II_III} </td>
                     </tr>
-                    <tr> 
+                    <tr>
                       <td>T(N.mm)</td>
-                      <td>${chapter1Result.T_dc}</td>
-                      <td>${chapter1Result.T_I}</td>
-                      <td colspan="4">${chapter1Result.T_II}</td>
-                      <td>${chapter1Result.T_III}</td>
+                      <td>${engine.T_dc}</td>
+                      <td>${engine.T_I}</td>
+                      <td colspan="4">${engine.T_II}</td>
+                      <td>${engine.T_III}</td>
                     </tr>
                   </tbody>
                 </table>
                 `;
 
-      calculationResult.innerHTML = `
+                calculationResult.innerHTML = `
                 <div class="container">
                   <div class="calculate-result__wrapper">
                     <div class="calculate-result__title"><span>1</span>
@@ -316,30 +519,313 @@ const handleChapter1 = async (inputId) => {
                 </div>
                 `;
 
-      const calculateExportButton = document.createElement("div");
-      calculateExportButton.classList.add(".calculate__export");
-      calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
-      `;
+                calculate.append(calculationResult);
 
-      calculate.append(calculateSuggest);
-      calculate.append(calculationResult);
-      calculate.append(calculateExportButton);
-    };
-
-    const getChapter1Result = await axios.get(
-      `${API_URL}/calculate/chapter-1?inputId=${inputId}`,
-      { headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
-    );
-    const getChapter1Data = getChapter1Result.data.data;
-    if (getChapter1Data.status === "initial") {
-      await displayChapter1CalculateProcess(inputId);
-    } else {
-      await displayChapter1Result(inputId, getChapter1Data);
+                const calculateExportButton = document.createElement("div");
+                calculateExportButton.classList.add(".calculate__export");
+                calculateExportButton.innerHTML = `
+                <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+                `;
+                calculate.append(calculateExportButton);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          });
+        });
+      } else if (chapter1.status === "finish") {
+        displayChapter1Result(inputId, chapter1);
+      }
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
+  // try {
+  //   const displayChapter1CalculateProcess = async (inputId) => {
+  //     const stage1Response = await axios.post(
+  //       `${API_URL}/calculate/chapter-1/stage-1`,
+  //       {
+  //         inputId,
+  //       }
+  //     );
+  //     if (stage1Response.status === 200) {
+  //       const suggestEngines = stage1Response.data.data.engines;
+  //       const calculate = document.querySelector(".calculate");
+  //       calculate.innerHTML = "";
+  //       const calculateSuggest = document.createElement("div");
+  //       calculateSuggest.classList.add("calculate-suggest");
+
+  //       const suggestEnginesHTML = suggestEngines.map(
+  //         (engine) =>
+  //           `<div class="calculate-suggest__item swiper-slide" engine-id="${engine._id}">
+  //             <div class="calculate-suggest__item-name">${engine.kieu_dong_co}</div>
+  //             <div class="calculate-suggest__item-manufacturer">
+  //                 Nhà sản xuất: <span>HCMUT </span>
+  //             </div>
+  //             <div class="calculate-suggest__item-parameter">
+  //               <div>
+  //                 <span>Công suất: </span>
+  //                 <span>${engine.cong_suat_kW}</span>
+  //               </div>
+  //               <div>
+  //                 <span>Vận tốc vòng quay: </span>
+  //                 <span>${engine.van_toc_quay_vgph}</div>
+  //             </div>
+  //             <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
+  //             <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
+  //           </div>`
+  //       );
+
+  //       const suggestEngineList = `
+  //         <div class="calculate-suggest__list">
+  //           <div class="calculate-suggest__list-title">Động cơ</div>
+  //           <div class="calculate-suggest__list-wrapper swiper mySwiper">
+  //             <div class="swiper-wrapper">
+  //               ${suggestEnginesHTML.join("\n")}
+  //             </div>
+  //             <div class="swiper-pagination"></div>
+  //           </div>
+  //         </div>
+  //       `;
+
+  //       calculateSuggest.innerHTML = `
+  //        <div class="container">
+  //           <div class="calculate-suggest__wrapper">
+  //             <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+  //               <h2>Linh Kiện Phù Hợp</h2>
+  //             </div>
+  //             ${suggestEngineList}
+  //           </div>
+  //         </div>
+  //       `;
+
+  //       calculate.appendChild(calculateSuggest);
+  //       var swiper = new Swiper(".mySwiper", {
+  //         slidesPerView: 3,
+  //         spaceBetween: 30,
+  //         pagination: {
+  //           el: ".swiper-pagination",
+  //           clickable: true,
+  //         },
+  //       });
+  //       //Handle Save Button
+  //       const saveButtons = document.querySelectorAll(
+  //         ".calculate-suggest__item-save"
+  //       );
+  //       saveButtons.forEach((button) => {
+  //         button.addEventListener("click", async (e) => {
+  //           try {
+  //             const engineId = e.target.getAttribute("engine-id");
+  //             const response = await axios.post(
+  //               `${API_URL}/calculate/chapter-1/stage-2`,
+  //               {
+  //                 inputId,
+  //                 engineId,
+  //               }
+  //             );
+  //             if (response.status === 200) {
+  //               button.classList.add("active");
+  //               const engine = response.data.data;
+  //               const calculationResult = document.createElement("div");
+  //               calculationResult.classList.add("calculate-result");
+
+  //               const table = `
+  //               <table>
+  //                 <thead>
+  //                   <tr>
+  //                     <th>Thông số</th>
+  //                     <th>Động cơ</th>
+  //                     <th>Trục I</th>
+  //                     <th colspan="2">Trục II</th>
+  //                     <th colspan="2">Trục II</th>
+  //                     <th>Trục III</th>
+  //                   </tr>
+  //                 </thead>
+  //                 <tbody>
+  //                   <tr>
+  //                     <td>P(kw)</td>
+  //                     <td>${engine.P_dc}</td>
+  //                     <td>${engine.P_I}</td>
+  //                     <td colspan="4">${engine.P_II}</td>
+  //                     <td>${engine.P_III}</td>
+  //                   </tr>
+  //                   <tr>
+  //                     <td>n (vg/phút)</td>
+  //                     <td>${engine.n_dc}</td>
+  //                     <td>${engine.n_I}</td>
+  //                     <td colspan="4">${engine.n_II}</td>
+  //                     <td>${engine.n_III}</td>
+  //                   </tr>
+  //                   <tr>
+  //                     <td>u </td>
+  //                     <td>${engine.u_dc}</td>
+  //                     <td colspan="3">${engine.u_I_II}</td>
+  //                     <td colspan="3">${engine.u_II_III} </td>
+  //                   </tr>
+  //                   <tr>
+  //                     <td>T(N.mm)</td>
+  //                     <td>${engine.T_dc}</td>
+  //                     <td>${engine.T_I}</td>
+  //                     <td colspan="4">${engine.T_II}</td>
+  //                     <td>${engine.T_III}</td>
+  //                   </tr>
+  //                 </tbody>
+  //               </table>
+  //               `;
+
+  //               calculationResult.innerHTML = `
+  //               <div class="container">
+  //                 <div class="calculate-result__wrapper">
+  //                   <div class="calculate-result__title"><span>1</span>
+  //                     <h3>Tính chọn động cơ điện</h3>
+  //                   </div>
+  //                   <div class="calculate-result__body">
+  //                     ${table}
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //               `;
+
+  //               calculate.append(calculationResult);
+
+  //               const calculateExportButton = document.createElement("div");
+  //               calculateExportButton.classList.add(".calculate__export");
+  //               calculateExportButton.innerHTML = `
+  //               <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+  //               `;
+  //               calculate.append(calculateExportButton);
+  //             }
+  //           } catch (error) {
+  //             console.log(error);
+  //           }
+  //         });
+  //       });
+  //     }
+  //   };
+
+  // const displayChapter1Result = async (inputId, chapter1Result) => {
+  //   const calculate = document.querySelector(".calculate");
+  //   calculate.innerHTML = "";
+  //   const calculateSuggest = document.createElement("div");
+  //   calculateSuggest.classList.add("calculate-suggest");
+
+  //   const engine = chapter1Result.engineId;
+
+  //   calculateSuggest.innerHTML = `
+  //   <div class="container">
+  //       <div class="calculate-suggest__wrapper">
+  //         <div class="calculate-suggest__title"><i class="fa-solid fa-circle-check"></i>
+  //           <h2>Linh Kiện Phù Hợp</h2>
+  //         </div>
+  //         <div class="product-detail__wrapper">
+  //           <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+  //           </div>
+  //           <div class="product-detail__content">
+  //             <div class="product-detail__title">${engine.kieu_dong_co}</div>
+  //             <div class="product-detail__manufacturer">Nhà sản xuất</div>
+  //             <div class="product-detail__suggest">
+  //                 <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
+  //             <div class="product-detail__desc">
+  //               <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
+  //               <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
+  //             </div>
+  //             <div class="product-detail__param">
+  //               <div class="product-detail__param-title">Thông Số</div>
+  //               <div class="product-detail__parm-list">
+  //                 <div class="product-detail__param-item">Công suất: ${engine.cong_suat_kW} kW</div>
+  //                 <div class="product-detail__param-item">Vận tốc vòng quay: ${engine.van_toc_quay_vgph} vòng/phút</div>
+  //                 <div class="product-detail__param-item">T<sub>K</sub> / T<sub>dn</sub>: ${engine.ti_so_momen}</div>
+  //                 <div class="product-detail__param-item">Khối lượng: ${engine.khoi_luong_kg} kg</div>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   `;
+
+  //   const calculationResult = document.createElement("div");
+  //   calculationResult.classList.add("calculate-result");
+
+  //   const table = `
+  //             <table>
+  //               <thead>
+  //                 <tr>
+  //                   <th>Thông số</th>
+  //                   <th>Động cơ</th>
+  //                   <th>Trục I</th>
+  //                   <th colspan="2">Trục II</th>
+  //                   <th colspan="2">Trục II</th>
+  //                   <th>Trục III</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 <tr>
+  //                   <td>P(kw)</td>
+  //                   <td>${chapter1Result.P_dc}</td>
+  //                   <td>${chapter1Result.P_I}</td>
+  //                   <td colspan="4">${chapter1Result.P_II}</td>
+  //                   <td>${chapter1Result.P_III}</td>
+  //                 </tr>
+  //                 <tr>
+  //                   <td>n (vg/phút)</td>
+  //                   <td>${chapter1Result.n_dc}</td>
+  //                   <td>${chapter1Result.n_I}</td>
+  //                   <td colspan="4">${chapter1Result.n_II}</td>
+  //                   <td>${chapter1Result.n_III}</td>
+  //                 </tr>
+  //                 <tr>
+  //                   <td>u </td>
+  //                   <td>${chapter1Result.u_dc}</td>
+  //                   <td colspan="3">${chapter1Result.u_I_II}</td>
+  //                   <td colspan="3">${chapter1Result.u_II_III} </td>
+  //                 </tr>
+  //                 <tr>
+  //                   <td>T(N.mm)</td>
+  //                   <td>${chapter1Result.T_dc}</td>
+  //                   <td>${chapter1Result.T_I}</td>
+  //                   <td colspan="4">${chapter1Result.T_II}</td>
+  //                   <td>${chapter1Result.T_III}</td>
+  //                 </tr>
+  //               </tbody>
+  //             </table>
+  //             `;
+
+  //   calculationResult.innerHTML = `
+  //             <div class="container">
+  //               <div class="calculate-result__wrapper">
+  //                 <div class="calculate-result__title"><span>1</span>
+  //                   <h3>Tính chọn động cơ điện</h3>
+  //                 </div>
+  //                 <div class="calculate-result__body">
+  //                   ${table}
+  //                 </div>
+  //               </div>
+  //             </div>
+  //             `;
+
+  //   const calculateExportButton = document.createElement("div");
+  //   calculateExportButton.classList.add(".calculate__export");
+  //   calculateExportButton.innerHTML = `
+  //   <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+  //   `;
+
+  //   calculate.append(calculateSuggest);
+  //   calculate.append(calculationResult);
+  //   calculate.append(calculateExportButton);
+  // };
+
+  //   const getChapter1Result = await axios.get(
+  //     `${API_URL}/calculate/chapter-1?inputId=${inputId}`,
+  //     { headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
+  //   );
+  //   const getChapter1Data = getChapter1Result.data.data;
+  //   if (getChapter1Data.status === "initial") {
+  //     await displayChapter1CalculateProcess(inputId);
+  //   } else {
+  //     await displayChapter1Result(inputId, getChapter1Data);
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };
 
 const handleChapter2 = async (inputId) => {
@@ -550,7 +1036,361 @@ const handleChapter2 = async (inputId) => {
   }
 };
 
-const handleChapter3 = () => {};
+const handleChapter3 = async (inputId) => {
+  const displayFirstForm = () => {
+    const div = document.createElement("div");
+    div.classList.add("calculate-chapter-1-input");
+    div.classList.add("first");
+    div.innerHTML = `
+      <div class="container">
+        <form class="calculate-chapter-1-input__wrapper">
+          <div> 
+            <label for="lm12">Bánh đai (lm12) (mm)</label>
+            <input type="number" id="lm12" name="lm12">
+          </div>
+          <div> 
+            <label for="lm22">Bánh vít (lm22) (mm)</label>
+            <input type="number" id="lm22" name="lm22">
+          </div>
+          <div> 
+            <label for="lm23">Bánh răng trụ 1 (lm23) (mm)</label>
+            <input type="number" id="lm23" name="lm23">
+          </div>
+          <div> 
+            <label for="lm34">Bánh răng trụ 2 (lm34) (mm)</label>
+            <input type="number" id="lm34" name="lm34">
+          </div>
+          <div> 
+            <label for="lm33">Chiều dài mayor nửa khớp nối (lm33) (mm)</label>
+            <input type="number" id="lm33" name="lm33">
+          </div>
+          <button type="submit">Lưu</button>
+        </form>
+      </div>
+    `;
+    return div;
+  };
+
+  const displaySecondForm = () => {
+    const div = document.createElement("div");
+    div.classList.add("calculate-chapter-1-input");
+    div.classList.add("second");
+    div.innerHTML = `
+      <div class="container">
+        <form class="calculate-chapter-1-input__wrapper">
+          <div>
+            <label for="F_nt">Lực nối trục (F<sub>nt</sub>) (N)</label>
+            <div style="margin-top: 10px; margin-bottom: 10px;" id="F_nt_display">Value:</div>
+            <input type="range" min="0" max="100" step="5" id="F_nt" name="F_nt">
+          </div>
+          <button type="submit">Lưu</button>
+        </form>
+      </div>
+    `;
+    return div;
+  };
+
+  const displayResult = (chapter3) => {
+    const div = document.createElement("div");
+    div.classList.add("calculate-result");
+    div.innerHTML = `
+      <div class="container">
+        <div class="calculate-result__wrapper">
+          <div class="calculate-result__title"><span>3</span>
+            <h3>Thiết kế trục</h3>
+          </div>
+          <div class="calculate-result__body">
+            <div class="calculate-result__element">
+              <table style="table-layout: fixed;">
+                <thead> 
+                  <tr> 
+                    <th>Tiết diện</th>
+                    <th>Đường kính</th>
+                    <th>Then bằng b.h</th>
+                    <th>t1</th>
+                    <th>W</th>
+                    <th>
+                        W <sub>0</sub></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>B</td>
+                    <td>${chapter3.dsb1}</td>
+                    <td>${chapter3.bB} x ${chapter3.hB}</td>
+                    <td>${chapter3.t1B}</td>
+                    <td>${chapter3.WB}</td>
+                    <td>${chapter3.WB0}</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>${chapter3.dsb2}</td>
+                    <td>${chapter3.bF} x ${chapter3.hF}</td>
+                    <td>${chapter3.t1F}</td>
+                    <td>${chapter3.WF}</td>
+                    <td>${chapter3.WF0}</td>
+                  </tr>
+                  <tr>
+                    <td>N</td>
+                    <td>${chapter3.dsb3}</td>
+                    <td>${chapter3.bN} x ${chapter3.hN}</td>
+                    <td>${chapter3.t1N}</td>
+                    <td>${chapter3.WN}</td>
+                    <td>${chapter3.WN0}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="calculate-result__element">
+              <table style="table-layout: fixed;">
+                <thead> 
+                  <tr> 
+                    <th>Tiết diện</th>
+                    <th>σ<sub>a</sub>(MPa)</th>
+                    <th>
+                      σ<sub>m</sub>(MPa)</th>
+                    <th>
+                      τ<sub>a</sub>=
+                      τ<sub>m</sub>(MPa)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>B</td>
+                    <td>${chapter3.usaB}</td>
+                    <td>0</td>
+                    <td>${chapter3.taB}</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>${chapter3.usaF}</td>
+                    <td>0</td>
+                    <td>${chapter3.taF}</td>
+                  </tr>
+                  <tr>
+                    <td>N</td>
+                    <td>${chapter3.usaN}</td>
+                    <td>0</td>
+                    <td>${chapter3.taN}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="calculate-result__element">
+              <table style="table-layout: fixed;">
+                <thead> 
+                  <tr>
+                    <th>Tiết diện</th>
+                    <th>d (mm)</th>
+                    <th>ε<sub>σ</sub></th>
+                    <th>ε<sub>τ</sub></th>
+                    <th>K<sub>σ</sub> / (βε<sub>σ</sub>)</th>
+                    <th>K<sub>τ</sub> / (βε<sub>τ</sub>)</th>
+                    <th>S<sub>σ</sub></th>
+                    <th>S<sub>τ</sub></th>
+                    <th>S</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>B</td>
+                    <td>${chapter3.dsb1}</td>
+                    <td>${chapter3.eoB}</td>
+                    <td>${chapter3.etB}</td>
+                    <td>${chapter3.KoBEoB.toFixed(2)}</td>
+                    <td>${chapter3.KtBEtB.toFixed(2)}</td>
+                    <td>${chapter3.soB.toFixed(2)}</td>
+                    <td>${chapter3.stB.toFixed(2)}</td>
+                    <td>${chapter3.sB.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>${chapter3.dsb2}</td>
+                    <td>${chapter3.eoF}</td>
+                    <td>${chapter3.etF}</td>
+                    <td>${chapter3.KoBEoF.toFixed(2)}</td>
+                    <td>${chapter3.KtBEtF.toFixed(2)}</td>
+                    <td>${chapter3.soF.toFixed(2)}</td>
+                    <td>${chapter3.stF.toFixed(2)}</td>
+                    <td>${chapter3.sF.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>N</td>
+                    <td>${chapter3.dsb3}</td>
+                    <td>${chapter3.eoN}</td>
+                    <td>${chapter3.etN}</td>
+                    <td>${chapter3.KoBEoN.toFixed(2)}</td>
+                    <td>${chapter3.KtBEtN.toFixed(2)}</td>
+                    <td>${chapter3.soN.toFixed(2)}</td>
+                    <td>${chapter3.stN.toFixed(2)}</td>
+                    <td>${chapter3.sN.toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return div;
+  };
+
+  const handleSecondForm = (calculate, chapter3) => {
+    const rangeInput = document.querySelector("#F_nt");
+    rangeInput.min = chapter3.Fnt_truoc;
+    rangeInput.max = chapter3.Fnt_sau;
+    rangeInput.step = 10;
+    rangeInput.value = chapter3.Fnt_truoc;
+
+    rangeInput.addEventListener("input", (e) => {
+      const value = e.target.value;
+      const display = document.querySelector("#F_nt_display");
+      display.textContent = `Value: ${value}`;
+    });
+
+    const secondForm = document.querySelector(
+      ".calculate-chapter-1-input.second .calculate-chapter-1-input__wrapper"
+    );
+    secondForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitButton = e.submitter;
+      submitButton.disabled = true;
+
+      const F_nt = e.target.F_nt.value;
+      const response = await axios.get(
+        `${API_URL}/calculate/chapter-3?inputId=${inputId}&F_nt=${F_nt}`
+      );
+      const chapter3 = response.data.data;
+      calculate.append(displayResult(chapter3));
+      calculate.append(displaySaveButton());
+    });
+  };
+
+  const handleFirstForm = (calculate) => {
+    const firstForm = document.querySelector(
+      ".calculate-chapter-1-input.first .calculate-chapter-1-input__wrapper"
+    );
+    firstForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitButton = e.submitter;
+      submitButton.disabled = true;
+
+      const lm12 = e.target.lm12.value;
+      const lm22 = e.target.lm22.value;
+      const lm23 = e.target.lm23.value;
+      const lm34 = e.target.lm34.value;
+      const lm33 = e.target.lm33.value;
+
+      if (
+        lm12 === "" ||
+        lm22 === "" ||
+        lm23 === "" ||
+        lm34 === "" ||
+        lm33 === ""
+      ) {
+        alert("Vui lòng nhập hết các trường");
+        return;
+      }
+
+      const response = await axios.get(
+        `${API_URL}/calculate/chapter-3?inputId=${inputId}&lm12=${lm12}&lm22=${lm22}&lm23=${lm23}&lm34=${lm34}&lm33=${lm33}`
+      );
+      const chapter3 = response.data.data;
+
+      calculate.append(displaySecondForm());
+      handleSecondForm(calculate, chapter3);
+    });
+  };
+
+  const disableFirstForm = (firstForm, chapter3) => {
+    firstForm.lm12.value = chapter3.lm12;
+    firstForm.lm22.value = chapter3.lm22;
+    firstForm.lm23.value = chapter3.lm23;
+    firstForm.lm34.value = chapter3.lm34;
+    firstForm.lm33.value = chapter3.lm33;
+    firstForm.lm12.disabled = true;
+    firstForm.lm22.disabled = true;
+    firstForm.lm23.disabled = true;
+    firstForm.lm34.disabled = true;
+    firstForm.lm33.disabled = true;
+    const button = firstForm.querySelector("button");
+    button.style.display = "none";
+  };
+
+  const disableSecondForm = (secondForm, chapter3) => {
+    secondForm.F_nt.value = chapter3.F_nt;
+    secondForm.F_nt.disabled = true;
+    const textContent = document.querySelector("#F_nt_display");
+    textContent.textContent = `Value: ${chapter3.F_nt} N`;
+    const button = secondForm.querySelector("button");
+    button.style.display = "none";
+  };
+
+  const displaySaveButton = () => {
+    const calculateExportButton = document.createElement("div");
+    calculateExportButton.classList.add(".calculate__export");
+    calculateExportButton.innerHTML = `
+      <div class="container"><a href="${API_URL}/export/chapter-3/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      `;
+    return calculateExportButton;
+  };
+
+  try {
+    const response = await axios.get(
+      `${API_URL}/calculate/chapter-3?inputId=${inputId}`,
+      { headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
+    );
+
+    const chapter3 = response.data.data;
+
+    const calculate = document.querySelector(".calculate");
+
+    calculate.innerHTML = "";
+
+    calculate.append(displayFirstForm(calculate));
+
+    if (chapter3.status === "initial") {
+      handleFirstForm(calculate);
+    } else if (chapter3.status === "stage-1") {
+      if (
+        !chapter3.lm12 ||
+        !chapter3.lm22 ||
+        !chapter3.lm23 ||
+        !chapter3.lm34 ||
+        !chapter3.lm33
+      ) {
+        handleFirstForm(calculate);
+      }
+    } else if (chapter3.status === "stage-2") {
+      if (!chapter3.F_nt) {
+        const firstForm = document.querySelector(
+          ".calculate-chapter-1-input.first .calculate-chapter-1-input__wrapper"
+        );
+        disableFirstForm(firstForm, chapter3);
+        calculate.append(displaySecondForm());
+        handleSecondForm(calculate, chapter3);
+      }
+    } else {
+      const firstForm = document.querySelector(
+        ".calculate-chapter-1-input.first .calculate-chapter-1-input__wrapper"
+      );
+      disableFirstForm(firstForm, chapter3);
+      calculate.append(displaySecondForm());
+      const secondForm = document.querySelector(
+        ".calculate-chapter-1-input.second .calculate-chapter-1-input__wrapper"
+      );
+      disableSecondForm(secondForm, chapter3);
+      calculate.append(displayResult(chapter3));
+      calculate.append(displaySaveButton());
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const handleChapter = async (chapter, inputId) => {
   switch (chapter) {
@@ -560,7 +1400,9 @@ const handleChapter = async (chapter, inputId) => {
     case "2":
       await handleChapter2(inputId);
       break;
-
+    case "3":
+      await handleChapter3(inputId);
+      break;
     default:
       break;
   }
@@ -879,7 +1721,7 @@ const main = async () => {
       `${API_URL}/calculate/input?inputId=${inputId}`
     );
     const input = response.data.data;
-    console.log(input);
+    // console.log(input);
     F.value = input.F;
     p.value = input.p;
     v.value = input.v;

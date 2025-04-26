@@ -61,7 +61,157 @@ block main
           div(chapter="6").calculate-progress__item 6
           div(chapter="7").calculate-progress__item 7
 
+  //- .calculate-bruh
+  //-   .calculate-chapter-1-input 
+  //-     .container
+  //-       form.calculate-chapter-1-input__wrapper
+  //-         div 
+  //-           label(for="lm12") Bánh đai (lm12) (mm)
+  //-           input(type="number" id="lm12" name="lm12")
+  //-         div 
+  //-           label(for="lm22") Bánh vít (lm22) (mm)
+  //-           input(type="number" id="lm22" name="lm22")
+  //-         div 
+  //-           label(for="lm23") Bánh răng trụ 1 (lm23) (mm)
+  //-           input(type="number" id="lm23" name="lm23")
+  //-         div 
+  //-           label(for="lm34") Bánh răng trụ 2 (lm34) (mm)
+  //-           input(type="number" id="lm34" name="lm34")
+  //-         div 
+  //-           label(for="lm33") Chiều dài mayor nửa khớp nối (lm33) (mm)
+  //-           input(type="number" id="lm33" name="lm33")
+  //-         button(type="submit") Lưu
+
+  //-   .calculate-chapter-1-input 
+  //-     .container
+  //-       form.calculate-chapter-1-input__wrapper
+  //-         div 
+  //-           label(for="F_nt") Lực nối trục (F<sub>nt</sub>) (N)
+  //-           div(style="margin-top: 10px; margin-bottom: 10px;") Value: 10
+  //-           input(type="range" min="0" max="100" step="5" id="F_nt" name="F_nt")
+  //-         button(type="submit") Lưu
+
+  //-   .calculate-result
+  //-     .container
+  //-       .calculate-result__wrapper
+  //-         .calculate-result__title
+  //-           span 3
+  //-           h3 Thiết kế trục
+  //-         .calculate-result__body
+            //- .calculate-result__element
+            //-   table(style="table-layout: fixed;")
+            //-     thead 
+            //-       tr 
+            //-         th Tiết diện
+            //-         th Đường kính
+            //-         th Then bằng b.h
+            //-         th t1
+            //-         th W
+            //-         th 
+            //-           | W 
+            //-           sub 0
+            //-     tbody
+            //-       tr
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           |
+            //-         td 
+            //-           |
+            //-         td
+            //-           |
+
+            //- .calculate-result__element
+            //-   table(style="table-layout: fixed;")
+            //-     thead 
+            //-       tr 
+            //-         th Tiết diện
+            //-         th
+            //-           | σ
+            //-           sub a
+            //-           | (MPa)
+            //-         th 
+            //-           | σ
+            //-           sub m
+            //-           | (MPa)
+            //-         th 
+            //-           | τ
+            //-           sub a
+            //-           | =
+            //-           | τ
+            //-           sub m
+            //-           | (MPa)
+            //-     tbody
+            //-       tr
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+
+            //- .calculate-result__element
+            //-   table(style="table-layout: fixed;")
+            //-     thead 
+            //-       tr
+            //-         th Tiết diện
+            //-         th d (mm)
+            //-         th ε<sub>σ</sub>
+            //-         th ε<sub>τ</sub>
+            //-         th K<sub>σ</sub> / (βε<sub>σ</sub>)
+            //-         th K<sub>τ</sub> / (βε<sub>τ</sub>)
+            //-         th S<sub>σ</sub>
+            //-         th S<sub>τ</sub>
+            //-         th S
+            //-     tbody
+            //-       tr
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           | 
+            //-         td
+            //-           |
+            //-         td 
+            //-           |
+            //-         td
+            //-           |
+            //-         td
+            //-           |
+            //-         td 
+            //-           |
+            //-         td 
+            //-           |
+            
+              
   .calculate
+    //- .calculate-chapter-1-input 
+    //-   .container
+    //-     form.calculate-chapter-1-input__wrapper
+    //-       div 
+    //-         label(for="n_kn") Hiệu suất khớp nối (n_kn)
+    //-         input(type="number", name="n_kn")
+    //-       div
+    //-         label(for="n_d") Hiệu suất của bộ truyền đai (n_d)
+    //-         input(type="number", name="n_td")
+    //-       div
+    //-         label(for="n_brt") Hiệu suất của bộ truyền bánh răng trụ (n_brt)
+    //-         input(type="number", name="n_brt")
+    //-       div
+    //-         label(for="n_tv") Hiệu suất của bộ truyền trục vít (n_tv)
+    //-         input(type="number", name="n_tv") 
+    //-       div
+    //-         label(for="n_ol") Hiệu suất của một cặp ổ lăn (n_ol)
+    //-         input(type="number", name="n_ol")
+    //-       button(type="submit") Lưu
+
     //- .calculate-suggest
     //-   .container
     //-     .calculate-suggest__wrapper

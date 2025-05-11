@@ -106,8 +106,6 @@ const handleChapter1 = async (inputId) => {
               <div class="product-detail__content">
                 <div class="product-detail__title">${engine.kieu_dong_co}</div>
                 <div class="product-detail__manufacturer">Nhà sản xuất</div>
-                <div class="product-detail__suggest">
-                    <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
                 <div class="product-detail__desc">
                   <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
                   <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
@@ -190,12 +188,20 @@ const handleChapter1 = async (inputId) => {
       const calculateExportButton = document.createElement("div");
       calculateExportButton.classList.add(".calculate__export");
       calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=1 href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
-
       calculate.append(calculateSuggest);
       calculate.append(calculationResult);
       calculate.append(calculateExportButton);
+      const exportButton = document.querySelector(".calculate__export-button");
+      if (exportButton) {
+        exportButton.addEventListener("click", async (e) => {
+          const currentInputId = getUrlParams("inputId");
+          const currentChapter = e.target.getAttribute("chapter");
+          localStorage.setItem("currentChapter", currentChapter);
+          localStorage.setItem("currentInputId", currentInputId);
+        });
+      }
     };
 
     const response = await axios.get(
@@ -265,7 +271,7 @@ const handleChapter1 = async (inputId) => {
                   <span>Vận tốc vòng quay: </span>
                   <span>${engine.van_toc_quay_vgph}</div>
               </div>
-              <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
+              <div class="calculate-suggest__item-image"><img src="assets/images/engine.png" alt=""></div>
               <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
             </div>`
         );
@@ -385,9 +391,20 @@ const handleChapter1 = async (inputId) => {
                 const calculateExportButton = document.createElement("div");
                 calculateExportButton.classList.add(".calculate__export");
                 calculateExportButton.innerHTML = `
-                <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+                <div class="container"><a chapter=1 href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
                 `;
                 calculate.append(calculateExportButton);
+                const exportButton = document.querySelector(
+                  ".calculate__export-button"
+                );
+                if (exportButton) {
+                  exportButton.addEventListener("click", async (e) => {
+                    const currentInputId = getUrlParams("inputId");
+                    const currentChapter = e.target.getAttribute("chapter");
+                    localStorage.setItem("currentChapter", currentChapter);
+                    localStorage.setItem("currentInputId", currentInputId);
+                  });
+                }
               }
             } catch (error) {
               console.log(error);
@@ -430,7 +447,7 @@ const handleChapter1 = async (inputId) => {
                   <span>Vận tốc vòng quay: </span>
                   <span>${engine.van_toc_quay_vgph}</div>
               </div>
-              <div class="calculate-suggest__item-image"><img src="https://placehold.co/350x180?font=roboto&amp;text=Engine" alt=""></div>
+              <div class="calculate-suggest__item-image"><img src="assets/images/engine.png" alt=""></div>
               <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
             </div>`
         );
@@ -546,9 +563,20 @@ const handleChapter1 = async (inputId) => {
                 const calculateExportButton = document.createElement("div");
                 calculateExportButton.classList.add(".calculate__export");
                 calculateExportButton.innerHTML = `
-                <div class="container"><a href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+                <div class="container"><a chapter=1 href="${API_URL}/export/chapter-1/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
                 `;
                 calculate.append(calculateExportButton);
+                const exportButton = document.querySelector(
+                  ".calculate__export-button"
+                );
+                if (exportButton) {
+                  exportButton.addEventListener("click", async (e) => {
+                    const currentInputId = getUrlParams("inputId");
+                    const currentChapter = e.target.getAttribute("chapter");
+                    localStorage.setItem("currentChapter", currentChapter);
+                    localStorage.setItem("currentInputId", currentInputId);
+                  });
+                }
               }
             } catch (error) {
               console.log(error);
@@ -763,10 +791,19 @@ const handleChapter2 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-2/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=2 href="${API_URL}/export/chapter-2/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
 
     calculate.append(calculateExportButton);
+    const exportButton = document.querySelector(".calculate__export-button");
+    if (exportButton) {
+      exportButton.addEventListener("click", async (e) => {
+        const currentInputId = getUrlParams("inputId");
+        const currentChapter = e.target.getAttribute("chapter");
+        localStorage.setItem("currentChapter", currentChapter);
+        localStorage.setItem("currentInputId", currentInputId);
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -1006,6 +1043,15 @@ const handleChapter3 = async (inputId) => {
       const chapter3 = response.data.data;
       calculate.append(displayResult(chapter3));
       calculate.append(displaySaveButton());
+      const exportButton = document.querySelector(".calculate__export-button");
+      if (exportButton) {
+        exportButton.addEventListener("click", async (e) => {
+          const currentInputId = getUrlParams("inputId");
+          const currentChapter = e.target.getAttribute("chapter");
+          localStorage.setItem("currentChapter", currentChapter);
+          localStorage.setItem("currentInputId", currentInputId);
+        });
+      }
     });
   };
 
@@ -1072,7 +1118,7 @@ const handleChapter3 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-3/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=3 href="${API_URL}/export/chapter-3/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
     return calculateExportButton;
   };
@@ -1124,6 +1170,15 @@ const handleChapter3 = async (inputId) => {
       disableSecondForm(secondForm, chapter3);
       calculate.append(displayResult(chapter3));
       calculate.append(displaySaveButton());
+      const exportButton = document.querySelector(".calculate__export-button");
+      if (exportButton) {
+        exportButton.addEventListener("click", async (e) => {
+          const currentInputId = getUrlParams("inputId");
+          const currentChapter = e.target.getAttribute("chapter");
+          localStorage.setItem("currentChapter", currentChapter);
+          localStorage.setItem("currentInputId", currentInputId);
+        });
+      }
     }
   } catch (error) {
     console.log(error);
@@ -1300,7 +1355,7 @@ const handleChapter4 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-4/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=4 href="${API_URL}/export/chapter-4/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
     return calculateExportButton;
   };
@@ -1330,6 +1385,15 @@ const handleChapter4 = async (inputId) => {
     `;
 
     calculate.append(displaySaveButton());
+    const exportButton = document.querySelector(".calculate__export-button");
+    if (exportButton) {
+      exportButton.addEventListener("click", async (e) => {
+        const currentInputId = getUrlParams("inputId");
+        const currentChapter = e.target.getAttribute("chapter");
+        localStorage.setItem("currentChapter", currentChapter);
+        localStorage.setItem("currentInputId", currentInputId);
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -1340,7 +1404,7 @@ const handleChapter5 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-5/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=5 href="${API_URL}/export/chapter-5/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
     return calculateExportButton;
   };
@@ -1800,6 +1864,15 @@ const handleChapter5 = async (inputId) => {
     </div>
     `;
     calculate.appendChild(displaySaveButton());
+    const exportButton = document.querySelector(".calculate__export-button");
+    if (exportButton) {
+      exportButton.addEventListener("click", async (e) => {
+        const currentInputId = getUrlParams("inputId");
+        const currentChapter = e.target.getAttribute("chapter");
+        localStorage.setItem("currentChapter", currentChapter);
+        localStorage.setItem("currentInputId", currentInputId);
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -1810,7 +1883,7 @@ const handleChapter6 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-6/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=6 href="${API_URL}/export/chapter-6/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
     return calculateExportButton;
   };
@@ -1820,7 +1893,7 @@ const handleChapter6 = async (inputId) => {
       `${API_URL}/calculate/chapter-6?inputId=${inputId}`
     );
     const chapter6 = response.data.data;
-    console.log(chapter6);
+    // console.log(chapter6);
 
     const calculate = document.querySelector(".calculate");
     calculate.innerHTML = `
@@ -1864,6 +1937,15 @@ const handleChapter6 = async (inputId) => {
     </div>
     `;
     calculate.appendChild(displaySaveButton());
+    const exportButton = document.querySelector(".calculate__export-button");
+    if (exportButton) {
+      exportButton.addEventListener("click", async (e) => {
+        const currentInputId = getUrlParams("inputId");
+        const currentChapter = e.target.getAttribute("chapter");
+        localStorage.setItem("currentChapter", currentChapter);
+        localStorage.setItem("currentInputId", currentInputId);
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -1874,7 +1956,7 @@ const handleChapter7 = async (inputId) => {
     const calculateExportButton = document.createElement("div");
     calculateExportButton.classList.add(".calculate__export");
     calculateExportButton.innerHTML = `
-      <div class="container"><a href="${API_URL}/export/chapter-7/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
+      <div class="container"><a chapter=7 href="${API_URL}/export/chapter-7/${inputId}" class="calculate__export-button">Xuất Báo Cáo</a></div>
       `;
     return calculateExportButton;
   };
@@ -1947,10 +2029,10 @@ const handleChapter7 = async (inputId) => {
               <td>${data.fitData[4].fitType}</td>
               <td>${data.fitData[4].shaftFits[0].diameter}</td>
               <td>${data.fitData[4].shaftFits[0].tolerance[0]}</td>
-              <td>${data.fitData[4].shaftFits[1].diameter}</td>
-              <td>${data.fitData[4].shaftFits[1].tolerance[0]}</td>
-              <td>${data.fitData[4].shaftFits[2].diameter}</td>
-              <td>${data.fitData[4].shaftFits[2].tolerance[0]}</td>
+              <td>${data.fitData[4]?.shaftFits[1]?.diameter ? data.fitData[4].shaftFits[1].diameter : "-"}</td>
+              <td>${data.fitData[4]?.shaftFits[1]?.tolerance[0] ? data.fitData[4].shaftFits[1].tolerance[0] : "-"}</td>
+              <td>${data.fitData[4]?.shaftFits[2]?.diameter ? data.fitData[4].shaftFits[2].diameter : "-"}</td>
+              <td>${data.fitData[4]?.shaftFits[2]?.tolerance[0] ? data.fitData[4].shaftFits[2].tolerance[0] : "-"}</td>
             </tr>
             <tr>
               <td>6</td>
@@ -1989,6 +2071,15 @@ const handleChapter7 = async (inputId) => {
     </div>  
     `;
     calculate.appendChild(displaySaveButton());
+    const exportButton = document.querySelector(".calculate__export-button");
+    if (exportButton) {
+      exportButton.addEventListener("click", async (e) => {
+        const currentInputId = getUrlParams("inputId");
+        const currentChapter = e.target.getAttribute("chapter");
+        localStorage.setItem("currentChapter", currentChapter);
+        localStorage.setItem("currentInputId", currentInputId);
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -2314,7 +2405,18 @@ const main = async () => {
       });
     });
 
-    calculateProgressItem[0].click();
+    const currentChapter = localStorage.getItem("currentChapter")
+      ? localStorage.getItem("currentChapter")
+      : 1;
+    const currentInputId = localStorage.getItem("currentInputId")
+      ? localStorage.getItem("currentInputId")
+      : null;
+
+    if (currentInputId === inputId) {
+      calculateProgressItem[parseInt(currentChapter) - 1].click();
+    } else {
+      calculateProgressItem[0].click();
+    }
   }
 
   const calculateInput = document.querySelector(".calculate-input");
@@ -2504,8 +2606,6 @@ const main = async () => {
       <div class="product-detail__content">
         <div class="product-detail__title">${engine.kieu_dong_co}</div>
         <div class="product-detail__manufacturer">Nhà sản xuất</div>
-        <div class="product-detail__suggest">
-            <i class="fa-solid fa-lightbulb"></i> <span>10 lượt gợi ý</span></div>
         <div class="product-detail__desc">
           <div class="product-detail__detail"><span>Mã linh kiện: ${engine.kieu_dong_co}</div>
           <div class="product-detail__detail"><span>Chỉnh sửa lần cuối:</span><span>XXXXXXX</span></div>
@@ -2523,6 +2623,14 @@ const main = async () => {
     } catch (error) {}
   }
   //End Product Detail
+
+  const calculateSection = document.querySelector(
+    ".calculate-section-1__title"
+  );
+  if (!calculateSection) {
+    localStorage.removeItem("currentChapter");
+    localStorage.removeItem("currentInputId");
+  }
 };
 
 main();

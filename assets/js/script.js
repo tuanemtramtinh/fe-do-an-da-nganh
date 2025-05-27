@@ -101,7 +101,7 @@ const handleChapter1 = async (inputId) => {
               <h2>Linh Kiện Phù Hợp</h2>
             </div>
             <div class="product-detail__wrapper">
-              <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+              <div class="product-detail__image"><img src="./assets/images/engine.png" alt="">
               </div>
               <div class="product-detail__content">
                 <div class="product-detail__title">${engine.kieu_dong_co}</div>
@@ -271,7 +271,7 @@ const handleChapter1 = async (inputId) => {
                   <span>Vận tốc vòng quay: </span>
                   <span>${engine.van_toc_quay_vgph}</div>
               </div>
-              <div class="calculate-suggest__item-image"><img src="assets/images/engine.png" alt=""></div>
+              <div class="calculate-suggest__item-image"><img src="./assets/images/engine.png" alt=""></div>
               <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
             </div>`
         );
@@ -447,7 +447,7 @@ const handleChapter1 = async (inputId) => {
                   <span>Vận tốc vòng quay: </span>
                   <span>${engine.van_toc_quay_vgph}</div>
               </div>
-              <div class="calculate-suggest__item-image"><img src="assets/images/engine.png" alt=""></div>
+              <div class="calculate-suggest__item-image"><img src="./assets/images/engine.png" alt=""></div>
               <button class="calculate-suggest__item-save" engine-id="${engine._id}">Lưu</button>
             </div>`
         );
@@ -2497,7 +2497,7 @@ const main = async () => {
       const productsHtml = products.map(
         (product) => `
         <div class="product__item">
-          <div class="product__item-image"><img src="/assets/images/engine.png" alt=""></div>
+          <div class="product__item-image"><img src="./assets/images/engine.png" alt=""></div>
           <div class="product__item-desc"> 
             <div class="product__item-title">${product.kieu_dong_co}</div>
             <div class="product__item-content">Mô tả về động cơ ${product.kieu_dong_co}</div>
@@ -2601,7 +2601,7 @@ const main = async () => {
       const engine = response.data.data;
 
       productDetail.innerHTML = `
-      <div class="product-detail__image"><img src="/assets/images/engine.png" alt="">
+      <div class="product-detail__image"><img src="./assets/images/engine.png" alt="">
       </div>
       <div class="product-detail__content">
         <div class="product-detail__title">${engine.kieu_dong_co}</div>

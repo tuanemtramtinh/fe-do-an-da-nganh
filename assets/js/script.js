@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "http://103.140.249.159:3500";
 
 //Swiper
 if (document.querySelector(".mySwiper")) {

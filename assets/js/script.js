@@ -2133,7 +2133,7 @@ const main = async () => {
           const token = response.data.data.accessToken;
           localStorage.setItem("token", token);
           alert("Đăng nhập thành công, bạn sẽ được chuyển hướng...");
-          window.location.href = "/index.html";
+          window.location.href = "./index.html";
         }
       } catch (error) {
         const data = error.response.data;
@@ -2159,7 +2159,7 @@ const main = async () => {
         });
         if (response.status === 200) {
           alert("Đăng ký thành công, bạn sẽ được chuyển hướng...");
-          window.location.href = "/login.html";
+          window.location.href = "./login.html";
         }
       } catch (error) {
         const data = error.response.data;
@@ -2189,7 +2189,7 @@ const main = async () => {
           logout.classList.add("active");
           logout.addEventListener("click", () => {
             localStorage.removeItem("token");
-            window.location.href = "/index.html";
+            window.location.href = "./index.html";
           });
         })
         .catch((error) => {
@@ -2228,7 +2228,7 @@ const main = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
           alert("Bạn cần đăng nhập để sử dụng tính năng này");
-          window.location.href = "/login.html";
+          window.location.href = "./login.html";
           return;
         }
 
@@ -2253,9 +2253,9 @@ const main = async () => {
       } catch (error) {
         const code = error.response.data.code;
         if (code && code === "expired_access_token") {
-          if (window.location.pathname !== "/login.html") {
+          if (window.location.pathname !== "./login.html") {
             alert("Vui lòng đăng nhập lại");
-            window.location.href = "/login.html";
+            window.location.href = "./login.html";
           }
         }
       }
@@ -2393,7 +2393,7 @@ const main = async () => {
 
     if (!inputId) {
       alert("Không tìm thấy dữ liệu");
-      window.location.href = "/index.html";
+      window.location.href = "./index.html";
     }
 
     calculateProgressItem.forEach((item, index) => {
@@ -2468,7 +2468,7 @@ const main = async () => {
             (item) => `
           <div class="history__item">
             <div class="history__item-date">${item.createdAt}</div>
-            <div class="history__item-status success">Hoàn Thành</div><a class="history__item-detail" href="/calculate.html?inputId=${item.id}">Xem Chi Tiết</a>
+            <div class="history__item-status success">Hoàn Thành</div><a class="history__item-detail" href="./calculate.html?inputId=${item.id}">Xem Chi Tiết</a>
           </div>
           `
           );
@@ -2478,9 +2478,9 @@ const main = async () => {
     } catch (error) {
       const code = error.response.data.code;
       if (code && code === "expired_access_token") {
-        if (window.location.pathname !== "/login.html") {
+        if (window.location.pathname !== "./login.html") {
           alert("Vui lòng đăng nhập lại");
-          window.location.href = "/login.html";
+          window.location.href = "./login.html";
         }
       }
     }
@@ -2501,7 +2501,7 @@ const main = async () => {
           <div class="product__item-desc"> 
             <div class="product__item-title">${product.kieu_dong_co}</div>
             <div class="product__item-content">Mô tả về động cơ ${product.kieu_dong_co}</div>
-          </div><a class="product__item-detail" href="/product-detail.html?engineCode=${product.kieu_dong_co}">Xem Chi Tiết</a>
+          </div><a class="product__item-detail" href="./product-detail.html?engineCode=${product.kieu_dong_co}">Xem Chi Tiết</a>
         </div>
         `
       );
@@ -2544,7 +2544,7 @@ const main = async () => {
         // Always show first page
         if (startPage > 1) {
           pagination.push(
-            `<a class="product__pagination-item" href="/product.html?page=1">1</a>`
+            `<a class="product__pagination-item" href="./product.html?page=1">1</a>`
           );
 
           // Add ellipsis if there's a gap
@@ -2559,11 +2559,11 @@ const main = async () => {
         for (let i = startPage; i <= endPage; i++) {
           if (i === page) {
             pagination.push(
-              `<a class="product__pagination-item active" href="/product.html?page=${i}">${i}</a>`
+              `<a class="product__pagination-item active" href="./product.html?page=${i}">${i}</a>`
             );
           } else {
             pagination.push(
-              `<a class="product__pagination-item" href="/product.html?page=${i}">${i}</a>`
+              `<a class="product__pagination-item" href="./product.html?page=${i}">${i}</a>`
             );
           }
         }
@@ -2578,7 +2578,7 @@ const main = async () => {
           }
 
           pagination.push(
-            `<a class="product__pagination-item" href="/product.html?page=${totalPage}">${totalPage}</a>`
+            `<a class="product__pagination-item" href="./product.html?page=${totalPage}">${totalPage}</a>`
           );
         }
 
